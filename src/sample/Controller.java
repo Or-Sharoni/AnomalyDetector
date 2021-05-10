@@ -1,31 +1,30 @@
 package sample;
-
 import javafx.fxml.FXML;
 import Algorithms.TimeSeries;
-
+import javafx.scene.control.ListView;
 import javax.swing.*;
-import javax.swing.text.View;
-import javax.swing.text.html.ListView;
 import java.io.File;
 import java.util.ArrayList;
+import javafx.stage.FileChooser;
+
 
 public class Controller {
 
     @FXML
-    private ListView featuresList;
-    private void getFile(){
-        JFileChooser fc = new JFileChooser();
-        File file = null;
-        int returnVal = fc.showOpenDialog(null);
+    public ListView featuresList;
+    public void getFile(){
 
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            file = fc.getSelectedFile();
-        }
-        openHandler(file);
+        FileChooser fc = new FileChooser();
+        File file = null;
+        File returnVal = fc.showOpenDialog(null);
+        openHandler(returnVal);
     }
 
     public void openHandler(File file){
         TimeSeries timeSeries = new TimeSeries(file.getPath());
+        for(String str: timeSeries.features){
+           featuresList.getItems().add(str);
+        }
         System.out.println(timeSeries.features);
 
     }
