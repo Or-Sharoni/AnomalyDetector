@@ -1,7 +1,7 @@
 package sample;
 
 import javafx.fxml.FXML;
-import ptm1.test.TimeSeries;
+import Algorithms.TimeSeries;
 
 import javax.swing.*;
 import javax.swing.text.View;

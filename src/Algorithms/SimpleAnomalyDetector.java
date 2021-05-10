@@ -1,13 +1,9 @@
 package Algorithms;
-import test.CorrelatedFeatures;
-import test.Line;
-import test.TimeSeriesAnomalyDetector;
 
 import java.util.List;
 import java.util.ArrayList;
 
 public class SimpleAnomalyDetector implements TimeSeriesAnomalyDetector {
-	
 	public List<CorrelatedFeatures> correlatedList;
 	float correlationLimit = (float) 0.94;
 	

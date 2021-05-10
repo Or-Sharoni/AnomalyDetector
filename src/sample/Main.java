@@ -6,7 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
-import ptm1.test.TimeSeries;
+import Algorithms.TimeSeries;
+
 
 import javax.swing.*;
 import java.io.File;

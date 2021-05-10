@@ -12,18 +12,18 @@ final class Point {
 	}
 
 
-	public test.Point subtract(test.Point p) {
-		return new test.Point(x - p.x, y - p.y);
+	public Point subtract(Point p) {
+		return new Point(x - p.x, y - p.y);
 	}
 
 
-	public double distance(test.Point p) {
+	public double distance(Point p) {
 		return Math.hypot(x - p.x, y - p.y);
 	}
 
 
 	// Signed area / determinant thing
-	public double cross(test.Point p) {
+	public double cross(Point p) {
 		return x * p.y - y * p.x;
 	}
 
