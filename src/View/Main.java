@@ -1,5 +1,8 @@
 package View;
 
+import Model.Model;
+import Model.Server;
+import ViewModel.ViewModel;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,7 +22,11 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         FXMLLoader fxml = new FXMLLoader();
         AnchorPane root = fxml.load(getClass().getResource("sample.fxml").openStream());
-        primaryStage.setTitle("Hello World");
+        //MainController controller = fxml.getController();
+
+//        Server server = new Server();
+//        server.displaySimulator();
+        primaryStage.setTitle("Controller");
         primaryStage.setScene(new Scene(root, 950, 550));
         primaryStage.show();
     }
