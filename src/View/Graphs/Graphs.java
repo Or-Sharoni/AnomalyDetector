@@ -8,6 +8,7 @@ import java.io.IOException;
 public class Graphs extends AnchorPane {
 
     public Graphs(){
+        super();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Graphs.fxml"));
                 fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);

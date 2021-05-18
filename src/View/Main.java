@@ -12,8 +12,6 @@ import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import Algorithms.TimeSeries;
 
-
-import javax.swing.*;
 import java.io.File;
 
 public class Main extends Application {

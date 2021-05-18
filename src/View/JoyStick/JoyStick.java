@@ -8,6 +8,7 @@ import java.io.IOException;
 public class JoyStick extends AnchorPane {
 
     public JoyStick(){
+        super();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("JoyStick.fxml"));
                 fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
