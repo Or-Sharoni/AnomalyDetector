@@ -18,15 +18,20 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        FXMLLoader fxml = new FXMLLoader();
-        AnchorPane root = fxml.load(getClass().getResource("MainController.fxml"));
-        //MainController controller = fxml.getController();
+        FXMLLoader fxml = new FXMLLoader(getClass().getResource("MainController.fxml"));
+        AnchorPane root = fxml.load();
+        MainController controller = fxml.getController();
 
-//        Server server = new Server();
-//        server.displaySimulator();
+        ViewModel viewModel = new ViewModel();
+        controller.setViewModel(viewModel);
+
         primaryStage.setTitle("Controller");
         primaryStage.setScene(new Scene(root, 950, 550));
         primaryStage.show();
+
+        primaryStage.setOnCloseRequest(event -> {
+            System.out.println("bye");
+        });
     }
 
 

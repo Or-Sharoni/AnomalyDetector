@@ -5,8 +5,8 @@
 
 <AnchorPane prefHeight="550.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MainController">
    <children>
-      <fx:include source="Bar/Bar.fxml" />
-      <fx:include source="Graphs/Graphs.fxml" />
-      <fx:include source="JoyStick/JoyStick.fxml" />
+      <fx:include source="Bar/Bar.fxml" fx:id="Bar"/>
+      <fx:include source="Graphs/Graphs.fxml" fx:id="Graphs"/>
+      <fx:include source="JoyStick/JoyStick.fxml" fx:id="JoyStick"/>
    </children>
 </AnchorPane>

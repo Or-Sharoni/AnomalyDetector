@@ -7,11 +7,12 @@ import java.io.IOException;
 
 public class Bar extends AnchorPane {
 
-    public Bar(){
+    public Bar() {
         super();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Bar.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Bar.fxml"));
                 fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
+
         try {
             fxmlLoader.load();
         } catch (IOException exception) {

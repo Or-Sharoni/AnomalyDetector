@@ -1,48 +1,40 @@
 package View;
 
-import Algorithms.TimeSeries;
+
+import View.Bar.Bar;
+import View.Bar.BarController;
+import View.Graphs.GraphsController;
+import View.JoyStick.JoyStick;
+import View.JoyStick.JoyStickController;
 import ViewModel.ViewModel;
 import javafx.beans.property.*;
-
 import javafx.fxml.FXML;
-import java.io.File;
-import java.io.IOException;
+import View.Bar.Bar;
+import View.Graphs.Graphs;
+import View.JoyStick.JoyStick;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-import javafx.stage.FileChooser;
 
-import javax.swing.text.View;
 
 public class MainController {
 
     private ViewModel viewModel;
+    @FXML BarController BarController;
+    @FXML GraphsController GraphsController;
+    @FXML JoyStickController JoyStickController;
 
 
-    private DoubleProperty simulatorSpeed;
-    @FXML private ListView features;
-    @FXML private TextField speed;
-
-    public void openHandler() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open CSV File");
-        File file = fileChooser.showOpenDialog(null);
-
-        TimeSeries timeSeries = new TimeSeries(file.getPath());
-        for (String str : timeSeries.features) {
-            features.getItems().add(str);
-        }
+    public void setViewModel(ViewModel viewModel) {
+        this.viewModel = viewModel;
+        binding();
     }
 
-    public void moveForwardHandler() {
-//        simulatorSpeed.setValue(10.0);
-        speed.appendText("1.5");
-    }
+    public void binding(){
+        JoyStickController.aileron.bindBidirectional(viewModel.aileron);
+        JoyStickController.elevator.bindBidirectional(viewModel.elevator);
+        JoyStickController.rudder.bindBidirectional(viewModel.rudder);
+        JoyStickController.throttle.bindBidirectional(viewModel.throttle);
+   }
 
-    public void moveBackwardHandler() {
-//        simulatorSpeed.setValue(0.1);
-        speed.appendText("0.5");
-    }
+
+
 }

@@ -11,6 +11,8 @@ public class BarController {
 
     @FXML ListView features;
 
+
+
     public void openHandler(){
         features.getItems().clear();
         FileChooser fileChooser = new FileChooser();
