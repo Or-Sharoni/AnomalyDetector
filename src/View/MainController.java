@@ -1,7 +1,6 @@
 package View;
 
 import Algorithms.TimeSeries;
-import View.featuresList.FeaturesListController;
 import ViewModel.ViewModel;
 import javafx.beans.property.*;
 

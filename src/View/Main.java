@@ -21,7 +21,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         FXMLLoader fxml = new FXMLLoader();
-        AnchorPane root = fxml.load(getClass().getResource("sample.fxml").openStream());
+        AnchorPane root = fxml.load(getClass().getResource("MainController.fxml"));
         //MainController controller = fxml.getController();
 
 //        Server server = new Server();

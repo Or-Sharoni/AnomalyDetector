@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="View.JoyStick.JoyStickController">
+    <children>
+        <Circle fx:id="joystickBackground" fill="#759dc3" layoutX="812.0" layoutY="106.0" radius="80.0" stroke="BLACK" strokeType="INSIDE" />
+        <Circle fx:id="joystick" fill="WHITE" layoutX="812.0" layoutY="106.0" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+        <Slider fx:id="horizontal" layoutX="707.0" layoutY="213.0" prefHeight="16.0" prefWidth="200.0" />
+        <Slider fx:id="vertical" layoutX="668.0" layoutY="17.0" orientation="VERTICAL" prefHeight="178.0" prefWidth="16.0" />
+        <Label layoutX="688.0" layoutY="250.0" prefHeight="130.0" prefWidth="238.0" text="Control Pannel">
+            <font>
+                <Font size="32.0" />
+            </font>
+        </Label>
+    </children>
+
+</AnchorPane>
