@@ -10,8 +10,9 @@ public class Graphs extends AnchorPane {
     public Graphs(){
         super();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Graphs.fxml"));
-                fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
+        GraphsController graphsController = new GraphsController();
+        fxmlLoader.setController(graphsController);
+
         try {
             fxmlLoader.load();
         } catch (IOException exception) {

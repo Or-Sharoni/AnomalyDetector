@@ -9,4 +9,6 @@ public class GraphsController {
     @FXML LineChart firstCorrelated;
     @FXML LineChart secondCorrelated;
     @FXML ScatterChart anomalies;
+
+    public GraphsController() {}
 }

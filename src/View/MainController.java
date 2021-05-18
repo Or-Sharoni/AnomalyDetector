@@ -25,15 +25,18 @@ public class MainController {
 
     public void setViewModel(ViewModel viewModel) {
         this.viewModel = viewModel;
-        binding();
+        joyStickBinding();
     }
 
-    public void binding(){
+    public void joyStickBinding(){
         JoyStickController.aileron.bindBidirectional(viewModel.aileron);
         JoyStickController.elevator.bindBidirectional(viewModel.elevator);
         JoyStickController.rudder.bindBidirectional(viewModel.rudder);
         JoyStickController.throttle.bindBidirectional(viewModel.throttle);
    }
+
+   public void graphBinding(){}
+   public void barBinding(){}
 
 
 
