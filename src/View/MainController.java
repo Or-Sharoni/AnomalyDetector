@@ -26,7 +26,6 @@ public class MainController {
     public void setViewModel(ViewModel viewModel) {
         this.viewModel = viewModel;
         joyStickBinding();
-//        this.viewModel.getAileron().bindBidirectional(JoyStickController.horizontal.valueProperty());
 
     }
 
@@ -35,6 +34,7 @@ public class MainController {
         JoyStickController.elevator.bindBidirectional(viewModel.elevator);
         JoyStickController.rudder.bindBidirectional(viewModel.rudder);
         JoyStickController.throttle.bindBidirectional(viewModel.throttle);
+        BarController.TimeStemp.bindBidirectional(viewModel.TimeStemp);
    }
 
    public void graphBinding(){}

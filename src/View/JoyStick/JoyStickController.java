@@ -14,7 +14,7 @@ public class JoyStickController {
 
     @FXML Circle joystickBackground;
     @FXML Circle joystick;
-    @FXML public Slider horizontal;
+    @FXML Slider horizontal;
     @FXML Slider vertical;
 
 
@@ -27,7 +27,14 @@ public class JoyStickController {
 
         }
 
-    public void initialize() {horizontal.valueProperty().bindBidirectional(aileron);}
+    public void initialize() {
+        aileron.addListener((observable, oldValue, newValue) -> {horizontal.setValue((double)newValue);});
+        elevator.addListener((observable, oldValue, newValue) -> {vertical.setValue((double)newValue);});
+//        rudder.addListener((observable, oldValue, newValue) -> {horizontal.setValue((double)newValue);});
+//        throttle.addListener((observable, oldValue, newValue) -> {horizontal.setValue((double)newValue);});
+
+
+    }
 
 
 

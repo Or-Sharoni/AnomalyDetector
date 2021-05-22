@@ -1,13 +1,16 @@
 package Model;
 
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -17,6 +20,8 @@ public class Model extends Observable {
 
     private double speed = 1;
     public DoubleProperty aileron,elevator,rudder,throttle;
+    public IntegerProperty TimeStemp;
+
     public Thread clientThread;
 
     public Model() {
@@ -24,6 +29,8 @@ public class Model extends Observable {
         elevator = new SimpleDoubleProperty();
         rudder = new SimpleDoubleProperty();
         throttle = new SimpleDoubleProperty();
+        TimeStemp = new SimpleIntegerProperty(1);
+
     }
 
     public void displaySimulator() throws IOException, InterruptedException {
@@ -40,6 +47,7 @@ public class Model extends Observable {
                     setElevator(features[1]);
                     setRudder(features[2]);
                     setThrottle(features[6]);
+                    setTimeStemp(TimeStemp.getValue() + 1);
 //            out.println(line);
 //            out.flush();
                     Thread.sleep((long) (100 * speed));
@@ -76,6 +84,12 @@ public class Model extends Observable {
         throttle.setValue(Double.parseDouble(newThrottle));
         setChanged();
         notifyObservers("Throttle");
+    }
+
+    public void setTimeStemp(int timeStemp){
+        TimeStemp.setValue(timeStemp);
+        setChanged();
+        notifyObservers("TimeStemp");
     }
 
 //    private void setSpeed(double speed){server.setSpeed(speed);}

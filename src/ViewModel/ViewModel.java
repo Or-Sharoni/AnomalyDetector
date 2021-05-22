@@ -5,7 +5,9 @@ import View.JoyStick.JoyStickController;
 import View.MainController;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -14,6 +16,7 @@ import java.util.function.DoublePredicate;
 public class ViewModel implements Observer {
 
     public DoubleProperty aileron,elevator,rudder,throttle;
+    public IntegerProperty TimeStemp;
     public Model model;
 
     public ViewModel(Model model){
@@ -22,6 +25,8 @@ public class ViewModel implements Observer {
         elevator = new SimpleDoubleProperty();
         rudder = new SimpleDoubleProperty();
         throttle = new SimpleDoubleProperty();
+
+        TimeStemp = new SimpleIntegerProperty();
         aileron.setValue(1);
         this.model.addObserver(this);
 
@@ -30,20 +35,26 @@ public class ViewModel implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         if(arg == "Aileron") {
-            this.aileron = this.model.aileron;
-            System.out.println("aileron: " + this.aileron);
+            this.aileron.setValue(this.model.aileron.getValue());
+//            System.out.println("aileron: " + this.aileron);
         }
         if(arg == "Elevator") {
-            this.elevator = this.model.elevator;
+            this.elevator.setValue(this.model.elevator.getValue());
 //            System.out.println("elevator: " + this.elevator);
         }
         if(arg == "Rudder") {
-            this.rudder = this.model.rudder;
+            this.rudder.setValue(this.model.rudder.getValue());
 //            System.out.println("rudder: " + this.rudder);
         }
         if(arg == "Throttle") {
-            this.throttle = this.model.throttle;
+            this.throttle.setValue(this.model.throttle.getValue());
 //            System.out.println("throttle: " + this.throttle);
+        }
+
+        if(arg == "TimeStemp"){
+            this.TimeStemp.setValue(this.model.TimeStemp.getValue());
+            System.out.println("TimeStemp: " + this.TimeStemp);
+
         }
 
     }
