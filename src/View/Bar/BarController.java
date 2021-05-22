@@ -18,8 +18,10 @@ import java.util.ArrayList;
 
 public class BarController {
 
-    @FXML ListView features;
+    @FXML public ListView features;
     @FXML Slider timeLine;
+
+
     @FXML public Button pause;
     @FXML public Button play;
     @FXML public Button stop;
