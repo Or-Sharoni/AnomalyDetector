@@ -1,9 +1,6 @@
 package Model;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.*;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -21,6 +18,7 @@ public class Model extends Observable {
     private double speed = 1;
     public DoubleProperty aileron,elevator,rudder,throttle;
     public IntegerProperty TimeStemp;
+    public StringProperty altimeterText,airspeedText,directionText,pitchText,yawText,rollText;
 
     public Thread clientThread;
 
@@ -30,6 +28,14 @@ public class Model extends Observable {
         rudder = new SimpleDoubleProperty(0);
         throttle = new SimpleDoubleProperty(0);
         TimeStemp = new SimpleIntegerProperty(1);
+
+
+        altimeterText = new SimpleStringProperty();
+        airspeedText = new SimpleStringProperty();
+        directionText = new SimpleStringProperty();
+        pitchText = new SimpleStringProperty();
+        yawText = new SimpleStringProperty();
+        rollText = new SimpleStringProperty();
 
     }
 
@@ -47,6 +53,12 @@ public class Model extends Observable {
                     setElevator(features[1]);
                     setRudder(features[2]);
                     setThrottle(features[6]);
+                    setAltimeter(features[25]);
+                    setAirspeed(features[24]);
+                    setDirection(features[36]);
+                    setPitch(features[29]);
+                    setYaw(features[20]);
+                    setRoll(features[28]);
                     setTimeStemp(TimeStemp.getValue() + 1);
 //            out.println(line);
 //            out.flush();
@@ -87,6 +99,40 @@ public class Model extends Observable {
         TimeStemp.setValue(timeStemp);
         setChanged();
         notifyObservers("TimeStemp");
+    }
+
+    public void setAltimeter(String Text){
+        altimeterText.setValue(Text);
+        setChanged();
+        notifyObservers("altimeterText");
+    }
+
+    public void setAirspeed(String Text){
+        airspeedText.setValue(Text);
+        setChanged();
+        notifyObservers("airspeedText");
+    }
+    public void setDirection(String Text){
+        directionText.setValue(Text);
+        setChanged();
+        notifyObservers("directionText");
+    }
+
+    public void setPitch(String Text){
+        pitchText.setValue(Text);
+        setChanged();
+        notifyObservers("pitchText");
+    }
+    public void setYaw(String Text){
+        yawText.setValue(Text);
+        setChanged();
+        notifyObservers("yawText");
+    }
+
+    public void setRoll(String Text){
+        rollText.setValue(Text);
+        setChanged();
+        notifyObservers("rollText");
     }
 
     public void Suspend(){

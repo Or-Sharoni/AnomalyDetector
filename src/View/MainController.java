@@ -4,20 +4,13 @@ package View;
 import View.Bar.Bar;
 import View.Bar.BarController;
 import View.Graphs.GraphsController;
-import View.JoyStick.JoyStick;
 import View.JoyStick.JoyStickController;
 import ViewModel.ViewModel;
-import javafx.beans.property.*;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
+import View.ControlPanel.ControlPanelController;
+
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
-import View.Bar.Bar;
-import View.Graphs.Graphs;
-import View.JoyStick.JoyStick;
 
-
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 
 import java.io.IOException;
 
@@ -28,12 +21,14 @@ public class MainController {
     @FXML BarController BarController;
     @FXML GraphsController GraphsController;
     @FXML JoyStickController JoyStickController;
+    @FXML ControlPanelController ControlPanelController;
 
 
     public void setViewModel(ViewModel viewModel) {
         this.viewModel = viewModel;
         joyStickBinding();
         barBinding();
+        controlPanelBinding();
 
 
     }
@@ -44,8 +39,16 @@ public class MainController {
         JoyStickController.rudder.bindBidirectional(viewModel.rudder);
         JoyStickController.throttle.bindBidirectional(viewModel.throttle);
    }
+   public void controlPanelBinding() {
+       ControlPanelController.altimeterText.bindBidirectional(viewModel.altimeterText);
+       ControlPanelController.airspeedText.bindBidirectional(viewModel.airspeedText);
+       ControlPanelController.directionText.bindBidirectional(viewModel.directionText);
+       ControlPanelController.pitchText.bindBidirectional(viewModel.pitchText);
+       ControlPanelController.yawText.bindBidirectional(viewModel.yawText);
+       ControlPanelController.rollText.bindBidirectional(viewModel.rollText);
+   }
 
-   public void graphBinding(){}
+    public void graphBinding(){}
    public void barBinding(){
        BarController.TimeStemp.bindBidirectional(viewModel.TimeStemp);
        BarController.pause.setOnAction(e -> viewModel.model.Suspend());

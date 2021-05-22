@@ -4,10 +4,7 @@ import Model.Model;
 import View.JoyStick.JoyStickController;
 import View.MainController;
 import com.sun.org.apache.xpath.internal.operations.Mod;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.*;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -16,16 +13,28 @@ import java.util.function.DoublePredicate;
 public class ViewModel implements Observer {
 
     public DoubleProperty aileron,elevator,rudder,throttle;
+    public StringProperty altimeterText,airspeedText,directionText,pitchText,yawText,rollText;
     public IntegerProperty TimeStemp;
     public Model model;
 
     public ViewModel(Model model){
         this.model = model;
+
+        //Double Properties
         aileron = new SimpleDoubleProperty();
         elevator = new SimpleDoubleProperty();
         rudder = new SimpleDoubleProperty();
         throttle = new SimpleDoubleProperty();
 
+        //Strings Properties
+        altimeterText = new SimpleStringProperty();
+        airspeedText = new SimpleStringProperty();
+        directionText = new SimpleStringProperty();
+        pitchText = new SimpleStringProperty();
+        yawText = new SimpleStringProperty();
+        rollText = new SimpleStringProperty();
+
+        //Integer Properties
         TimeStemp = new SimpleIntegerProperty();
         aileron.setValue(1);
         this.model.addObserver(this);
@@ -34,27 +43,49 @@ public class ViewModel implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        if(arg == "Aileron") {
-            this.aileron.setValue(this.model.aileron.getValue());
+        switch (arg.toString()) {
+            case ("Aileron"):
+                this.aileron.setValue(this.model.aileron.getValue());
+                break;
 //            System.out.println("aileron: " + this.aileron);
-        }
-        if(arg == "Elevator") {
-            this.elevator.setValue(this.model.elevator.getValue());
+
+            case ("Elevator"):
+                this.elevator.setValue(this.model.elevator.getValue());
+                break;
 //            System.out.println("elevator: " + this.elevator);
-        }
-        if(arg == "Rudder") {
-            this.rudder.setValue(this.model.rudder.getValue());
+
+            case ( "Rudder") :
+                this.rudder.setValue(this.model.rudder.getValue());
+                break;
 //            System.out.println("rudder: " + this.rudder);
-        }
-        if(arg == "Throttle") {
-            this.throttle.setValue(this.model.throttle.getValue());
+
+            case ("Throttle"):
+                this.throttle.setValue(this.model.throttle.getValue());
+                break;
 //            System.out.println("throttle: " + this.throttle);
-        }
 
-        if(arg == "TimeStemp"){
-            this.TimeStemp.setValue(this.model.TimeStemp.getValue());
-            System.out.println("TimeStemp: " + this.TimeStemp);
-
+            case ("TimeStemp") :
+                this.TimeStemp.setValue(this.model.TimeStemp.getValue());
+                break;
+//                System.out.println("TimeStemp: " + this.TimeStemp);
+            case("altimeterText"):
+                this.altimeterText.setValue(this.model.altimeterText.getValue());
+                break;
+            case("airspeedText"):
+                this.airspeedText.setValue(this.model.airspeedText.getValue());
+                break;
+            case("directionText"):
+                this.directionText.setValue(this.model.directionText.getValue());
+                break;
+            case("pitchText"):
+                this.pitchText.setValue(this.model.pitchText.getValue());
+                break;
+            case("yawText"):
+                this.yawText.setValue(this.model.yawText.getValue());
+                break;
+            case("rollText"):
+                this.rollText.setValue(this.model.rollText.getValue());
+                break;
         }
 
     }
