@@ -1,7 +1,6 @@
 package View;
 
 import Model.Model;
-import Model.Server;
 import ViewModel.ViewModel;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -21,9 +20,11 @@ public class Main extends Application {
         FXMLLoader fxml = new FXMLLoader(getClass().getResource("MainController.fxml"));
         AnchorPane root = fxml.load();
         MainController controller = fxml.getController();
-
-        ViewModel viewModel = new ViewModel();
+        Model model = new Model();
+        ViewModel viewModel = new ViewModel(model);
         controller.setViewModel(viewModel);
+
+        model.displaySimulator();
 
         primaryStage.setTitle("Controller");
         primaryStage.setScene(new Scene(root, 950, 550));

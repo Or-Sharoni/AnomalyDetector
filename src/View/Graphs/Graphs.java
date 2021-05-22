@@ -13,6 +13,7 @@ public class Graphs extends AnchorPane {
         GraphsController graphsController = new GraphsController();
         fxmlLoader.setController(graphsController);
 
+
         try {
             fxmlLoader.load();
         } catch (IOException exception) {

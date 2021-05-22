@@ -21,7 +21,10 @@ public class JoyStickController {
         elevator = new SimpleDoubleProperty();
         rudder = new SimpleDoubleProperty();
         throttle = new SimpleDoubleProperty();
+
     }
+
+    public void updateHorizontal(){ horizontal.setValue(aileron.getValue());}
 
 
 

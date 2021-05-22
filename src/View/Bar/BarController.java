@@ -18,7 +18,7 @@ public class BarController {
     public BarController(){}
 
     public void openHandler(){
-        features.getItems().clear();
+//        features.getItems().clear();
         FileChooser fileChooser = new FileChooser();
         File file = fileChooser.showOpenDialog(null);
         TimeSeries timeSeries = new TimeSeries(file.getPath());
