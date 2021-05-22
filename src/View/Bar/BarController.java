@@ -4,8 +4,12 @@ import Algorithms.TimeSeries;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.StringProperty;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 
 import javafx.scene.control.ListView;
@@ -16,6 +20,12 @@ public class BarController {
 
     @FXML ListView features;
     @FXML Slider timeLine;
+    @FXML public Button pause;
+    @FXML public Button play;
+    @FXML public Button stop;
+
+
+
 
 
 
@@ -24,6 +34,8 @@ public class BarController {
     public BarController(){
         TimeStemp = new SimpleIntegerProperty();
     }
+
+
 
     public void openHandler(){
 //        features.getItems().clear();
@@ -44,7 +56,5 @@ public class BarController {
         timeLine.valueProperty().addListener((observable, oldValue, newValue) -> {
             TimeStemp.setValue(newValue);
         });
-
     }
-
 }

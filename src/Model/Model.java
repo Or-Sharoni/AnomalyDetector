@@ -27,8 +27,8 @@ public class Model extends Observable {
     public Model() {
         aileron = new SimpleDoubleProperty();
         elevator = new SimpleDoubleProperty();
-        rudder = new SimpleDoubleProperty();
-        throttle = new SimpleDoubleProperty();
+        rudder = new SimpleDoubleProperty(0);
+        throttle = new SimpleDoubleProperty(0);
         TimeStemp = new SimpleIntegerProperty(1);
 
     }
@@ -59,10 +59,7 @@ public class Model extends Observable {
 //        out.close();
 //        in.close();
 //        fg.close();
-
-
         clientThread.start();
-
     }
 
     public void setAileron(String newAileron){
@@ -90,6 +87,28 @@ public class Model extends Observable {
         TimeStemp.setValue(timeStemp);
         setChanged();
         notifyObservers("TimeStemp");
+    }
+
+    public void Suspend(){
+        clientThread.suspend();
+
+    }
+
+    public void Play() throws IOException, InterruptedException {
+        if(clientThread.isAlive() == true)
+            clientThread.resume();
+        else {
+            displaySimulator();
+        }
+    }
+
+    public void Stop(){
+        setAileron("0");
+        setElevator("0");
+        setRudder("-1");
+        setThrottle("-1");
+        setTimeStemp(1);
+        clientThread.stop();
     }
 
 //    private void setSpeed(double speed){server.setSpeed(speed);}
