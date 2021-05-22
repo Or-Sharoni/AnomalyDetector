@@ -4,6 +4,7 @@ import ViewModel.ViewModel;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXML;
+import javafx.scene.control.Control;
 import javafx.scene.control.Slider;
 import javafx.scene.shape.Circle;
 
@@ -13,8 +14,9 @@ public class JoyStickController {
 
     @FXML Circle joystickBackground;
     @FXML Circle joystick;
-    @FXML Slider horizontal;
+    @FXML public Slider horizontal;
     @FXML Slider vertical;
+
 
     public JoyStickController(){
         aileron = new SimpleDoubleProperty();
@@ -22,9 +24,10 @@ public class JoyStickController {
         rudder = new SimpleDoubleProperty();
         throttle = new SimpleDoubleProperty();
 
-    }
 
-    public void updateHorizontal(){ horizontal.setValue(aileron.getValue());}
+        }
+
+    public void initialize() {horizontal.valueProperty().bindBidirectional(aileron);}
 
 
 

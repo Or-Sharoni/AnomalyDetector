@@ -26,6 +26,8 @@ public class MainController {
     public void setViewModel(ViewModel viewModel) {
         this.viewModel = viewModel;
         joyStickBinding();
+//        this.viewModel.getAileron().bindBidirectional(JoyStickController.horizontal.valueProperty());
+
     }
 
     public void joyStickBinding(){
