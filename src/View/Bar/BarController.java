@@ -25,6 +25,7 @@ public class BarController {
     @FXML public Button pause;
     @FXML public Button play;
     @FXML public Button stop;
+    @FXML public Button open;
 
 
 
@@ -37,26 +38,13 @@ public class BarController {
         TimeStemp = new SimpleIntegerProperty();
     }
 
-
-
-    public void openHandler(){
-//        features.getItems().clear();
-        FileChooser fileChooser = new FileChooser();
-        File file = fileChooser.showOpenDialog(null);
-        TimeSeries timeSeries = new TimeSeries(file.getPath());
-        for(String feature: timeSeries.features){
-            features.getItems().add(feature);
-        }
-
-    }
-
     public void initialize() {
         TimeStemp.addListener((observable, oldValue, newValue) -> {
             timeLine.setValue((int)newValue);
         });
 
         timeLine.valueProperty().addListener((observable, oldValue, newValue) -> {
-            TimeStemp.setValue(newValue);
+            TimeStemp.setValue(newValue.intValue());
         });
-    }
+   }
 }

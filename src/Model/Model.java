@@ -1,7 +1,8 @@
 package Model;
 
+import Algorithms.TimeSeries;
+import ViewModel.ViewModel;
 import javafx.beans.property.*;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -19,8 +20,8 @@ public class Model extends Observable {
     public DoubleProperty aileron,elevator,rudder,throttle;
     public IntegerProperty TimeStemp;
     public StringProperty altimeterText,airspeedText,directionText,pitchText,yawText,rollText;
-
     public Thread clientThread;
+    public TimeSeries timeSeries;
 
     public Model() {
         aileron = new SimpleDoubleProperty();
@@ -42,29 +43,45 @@ public class Model extends Observable {
     public void displaySimulator() throws IOException, InterruptedException {
         clientThread = new Thread(() -> {
             try {
-                String[] features = new String[50];
-//        Socket fg=new Socket("localhost", 5400);
-                BufferedReader in = new BufferedReader(new FileReader("src/reg_flight.csv"));
-//        PrintWriter out=new PrintWriter(fg.getOutputStream());
-                String line = in.readLine();
-                while ((line = in.readLine()) != null) {
-                    features = line.split(",");
-                    setAileron(features[0]);
-                    setElevator(features[1]);
-                    setRudder(features[2]);
-                    setThrottle(features[6]);
-                    setAltimeter(features[25]);
-                    setAirspeed(features[24]);
-                    setDirection(features[36]);
-                    setPitch(features[29]);
-                    setYaw(features[20]);
-                    setRoll(features[28]);
+                int size=timeSeries.valuesLines.size();
+                while(TimeStemp.getValue()<size){
+                    ArrayList<Float> array=timeSeries.valuesLines.get(TimeStemp.getValue());
+                    setAileron(array.get(0));
+                    setElevator(array.get(1));
+                    setRudder(array.get(2));
+                    setThrottle(array.get(6));
+                    setAltimeter(array.get(25).toString());
+                    setAirspeed(array.get(24).toString());
+                    setDirection(array.get(36).toString());
+                    setPitch(array.get(29).toString());
+                    setYaw(array.get(20).toString());
+                    setRoll(array.get(28).toString());
                     setTimeStemp(TimeStemp.getValue() + 1);
-//            out.println(line);
-//            out.flush();
                     Thread.sleep((long) (100 * speed));
-
                 }
+      //          String[] features = new String[50];
+//        Socket fg=new Socket("localhost", 5400);
+ //        BufferedReader in = new BufferedReader(new FileReader("src/reg_flight.csv"));
+//        PrintWriter out=new PrintWriter(fg.getOutputStream());
+//                String line = in.readLine();
+//                while ((line = in.readLine()) != null) {
+//                    features = line.split(",");
+//                    setAileron(features[0]);
+//                    setElevator(features[1]);
+//                    setRudder(features[2]);
+//                    setThrottle(features[6]);
+//                    setAltimeter(features[25]);
+//                    setAirspeed(features[24]);
+//                    setDirection(features[36]);
+//                    setPitch(features[29]);
+//                    setYaw(features[20]);
+//                    setRoll(features[28]);
+//                    setTimeStemp(TimeStemp.getValue() + 1);
+////            out.println(line);
+////            out.flush();
+//                    Thread.sleep((long) (100 * speed));
+//
+//                }
             } catch (Exception e) {
             }
         });
@@ -74,23 +91,23 @@ public class Model extends Observable {
         clientThread.start();
     }
 
-    public void setAileron(String newAileron){
-        aileron.setValue(Double.parseDouble(newAileron));
+    public void setAileron(Float newAileron){
+        aileron.setValue(newAileron);
         setChanged();
         notifyObservers("Aileron");
     }
-    public void setElevator(String newElevator){
-        elevator.setValue(Double.parseDouble(newElevator));
+    public void setElevator(Float newElevator){
+        elevator.setValue(newElevator);
         setChanged();
         notifyObservers("Elevator");
     }
-    public void setRudder(String newRudder){
-        rudder.setValue(Double.parseDouble(newRudder));
+    public void setRudder(Float newRudder){
+        rudder.setValue(newRudder);
         setChanged();
         notifyObservers("Rudder");
     }
-    public void setThrottle(String newThrottle){
-        throttle.setValue(Double.parseDouble(newThrottle));
+    public void setThrottle(Float newThrottle){
+        throttle.setValue(newThrottle);
         setChanged();
         notifyObservers("Throttle");
     }
@@ -149,10 +166,10 @@ public class Model extends Observable {
     }
 
     public void Stop(){
-        setAileron("0");
-        setElevator("0");
-        setRudder("-1");
-        setThrottle("-1");
+        setAileron((float) 0);
+        setElevator((float) 0);
+        setRudder((float) -1);
+        setThrottle((float) -1);
         setTimeStemp(1);
         clientThread.stop();
     }

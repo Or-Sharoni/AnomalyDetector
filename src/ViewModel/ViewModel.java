@@ -1,11 +1,13 @@
 package ViewModel;
 
+import Algorithms.TimeSeries;
 import Model.Model;
 import View.JoyStick.JoyStickController;
 import View.MainController;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import javafx.beans.property.*;
 
+import javax.swing.text.View;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.function.DoublePredicate;
@@ -16,6 +18,7 @@ public class ViewModel implements Observer {
     public StringProperty altimeterText,airspeedText,directionText,pitchText,yawText,rollText;
     public IntegerProperty TimeStemp;
     public Model model;
+    public TimeSeries timeSeries;
 
     public ViewModel(Model model){
         this.model = model;
@@ -66,8 +69,8 @@ public class ViewModel implements Observer {
 
             case ("TimeStemp") :
                 this.TimeStemp.setValue(this.model.TimeStemp.getValue());
+            //    System.out.println("TimeStemp: " + this.TimeStemp);
                 break;
-//                System.out.println("TimeStemp: " + this.TimeStemp);
             case("altimeterText"):
                 this.altimeterText.setValue(this.model.altimeterText.getValue());
                 break;
@@ -89,7 +92,6 @@ public class ViewModel implements Observer {
         }
 
     }
-
 
     public DoubleProperty getAileron(){return this.aileron;}
 

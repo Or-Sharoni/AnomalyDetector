@@ -1,6 +1,7 @@
 package View;
 
 
+import Algorithms.TimeSeries;
 import View.Bar.Bar;
 import View.Bar.BarController;
 import View.Graphs.GraphsController;
@@ -10,8 +11,10 @@ import View.ControlPanel.ControlPanelController;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
+import javafx.stage.FileChooser;
 
 
+import java.io.File;
 import java.io.IOException;
 
 
@@ -62,20 +65,35 @@ public class MainController {
            }
        });
        BarController.stop.setOnAction(e -> viewModel.model.Stop());
+       BarController.open.setOnAction(e-> {
+           try {
+               openHandler();
+           } catch (IOException ioException) {
+               ioException.printStackTrace();
+           } catch (InterruptedException interruptedException) {
+               interruptedException.printStackTrace();
+           }
+       });
 
 
 
    }
+    public void openHandler() throws IOException, InterruptedException {
+        BarController.features.getItems().clear();
+        FileChooser fileChooser = new FileChooser();
+        File file = fileChooser.showOpenDialog(null);
+        viewModel.timeSeries = new TimeSeries(file.getPath());
+        for(String feature: viewModel.timeSeries.features){
+            BarController.features.getItems().add(feature);
+        }
+        viewModel.model.timeSeries= viewModel.timeSeries;
+        viewModel.model.displaySimulator();
 
+    }
 
-//    EventHandler<ActionEvent> pause = new EventHandler<ActionEvent>() {
-//        @Override
-//        public void handle(ActionEvent t) {
-//            viewModel.model.Suspend();
-//        }
-//    };
-
-
-
-
+    public void initialize() {
+        BarController.TimeStemp.addListener((observable, oldValue, newValue) -> {
+            viewModel.model.TimeStemp.setValue(newValue.intValue());
+        });
+    }
 }
