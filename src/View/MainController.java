@@ -54,6 +54,7 @@ public class MainController {
     public void graphBinding(){}
    public void barBinding(){
        BarController.TimeStemp.bindBidirectional(viewModel.TimeStemp);
+       BarController.speed.bindBidirectional(viewModel.speed);
        BarController.pause.setOnAction(e -> viewModel.model.Suspend());
        BarController.play.setOnAction(e -> {
            try {
@@ -94,6 +95,10 @@ public class MainController {
     public void initialize() {
         BarController.TimeStemp.addListener((observable, oldValue, newValue) -> {
             viewModel.model.TimeStemp.setValue(newValue.intValue());
+        });
+
+        BarController.speed.addListener((observable, oldValue, newValue) -> {
+            viewModel.model.speed.setValue(newValue.doubleValue());
         });
     }
 }

@@ -16,14 +16,14 @@ import java.util.Observer;
 public class Model extends Observable {
 
 
-    private double speed = 1;
-    public DoubleProperty aileron,elevator,rudder,throttle;
+    public DoubleProperty aileron,elevator,rudder,throttle,speed;
     public IntegerProperty TimeStemp;
     public StringProperty altimeterText,airspeedText,directionText,pitchText,yawText,rollText;
     public Thread clientThread;
     public TimeSeries timeSeries;
 
     public Model() {
+        speed = new SimpleDoubleProperty(1);
         aileron = new SimpleDoubleProperty();
         elevator = new SimpleDoubleProperty();
         rudder = new SimpleDoubleProperty(0);
@@ -57,7 +57,7 @@ public class Model extends Observable {
                     setYaw(array.get(20).toString());
                     setRoll(array.get(28).toString());
                     setTimeStemp(TimeStemp.getValue() + 1);
-                    Thread.sleep((long) (100 * speed));
+                    Thread.sleep((long) (100 * speed.getValue()));
                 }
       //          String[] features = new String[50];
 //        Socket fg=new Socket("localhost", 5400);
@@ -171,6 +171,12 @@ public class Model extends Observable {
         setRudder((float) -1);
         setThrottle((float) -1);
         setTimeStemp(1);
+        setAltimeter("0");
+        setAirspeed("0");
+        setDirection("0");
+        setPitch("0");
+        setYaw("0");
+        setRoll("0");
         clientThread.stop();
     }
 

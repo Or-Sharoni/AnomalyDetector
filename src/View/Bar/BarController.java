@@ -1,14 +1,13 @@
 package View.Bar;
 
 import Algorithms.TimeSeries;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 
@@ -21,11 +20,16 @@ public class BarController {
     @FXML public ListView features;
     @FXML Slider timeLine;
 
-
     @FXML public Button pause;
     @FXML public Button play;
     @FXML public Button stop;
     @FXML public Button open;
+    @FXML public Button doubleForward;
+    @FXML public Button doubleBack;
+    @FXML public Button tripleForward;
+    @FXML public Button tripleBack;
+    @FXML public TextField speedPlay;
+    public DoubleProperty speed;
 
 
 
@@ -36,8 +40,24 @@ public class BarController {
 
     public BarController(){
         TimeStemp = new SimpleIntegerProperty();
+        speed=new SimpleDoubleProperty();
     }
 
+    public void changeSpeed(){
+        speed.setValue(1/(Double.parseDouble(speedPlay.getText())));
+    }
+    public void doubleForward(){
+        speed.setValue(0.75);
+    }
+    public void tripleForward(){
+        speed.setValue(0.5);
+    }
+    public void tripleBack(){
+        speed.setValue(1.5);
+    }
+    public void doubleBack(){
+        speed.setValue(1.25);
+    }
     public void initialize() {
         TimeStemp.addListener((observable, oldValue, newValue) -> {
             timeLine.setValue((int)newValue);

@@ -14,11 +14,12 @@ import java.util.function.DoublePredicate;
 
 public class ViewModel implements Observer {
 
-    public DoubleProperty aileron,elevator,rudder,throttle;
+    public DoubleProperty aileron,elevator,rudder,throttle,speed;
     public StringProperty altimeterText,airspeedText,directionText,pitchText,yawText,rollText;
     public IntegerProperty TimeStemp;
     public Model model;
     public TimeSeries timeSeries;
+
 
     public ViewModel(Model model){
         this.model = model;
@@ -28,6 +29,7 @@ public class ViewModel implements Observer {
         elevator = new SimpleDoubleProperty();
         rudder = new SimpleDoubleProperty();
         throttle = new SimpleDoubleProperty();
+        speed = new SimpleDoubleProperty();
 
         //Strings Properties
         altimeterText = new SimpleStringProperty();
@@ -69,7 +71,7 @@ public class ViewModel implements Observer {
 
             case ("TimeStemp") :
                 this.TimeStemp.setValue(this.model.TimeStemp.getValue());
-            //    System.out.println("TimeStemp: " + this.TimeStemp);
+                System.out.println("TimeStemp: " + this.TimeStemp);
                 break;
             case("altimeterText"):
                 this.altimeterText.setValue(this.model.altimeterText.getValue());
