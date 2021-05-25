@@ -19,8 +19,8 @@ public class JoyStickController {
 
 
     public JoyStickController(){
-        aileron = new SimpleDoubleProperty(0);
-        elevator = new SimpleDoubleProperty(0);
+        aileron = new SimpleDoubleProperty();
+        elevator = new SimpleDoubleProperty();
         rudder = new SimpleDoubleProperty();
         throttle = new SimpleDoubleProperty();
 
