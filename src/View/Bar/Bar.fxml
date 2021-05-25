@@ -21,6 +21,5 @@
     <TextField fx:id="speedPlay" onInputMethodTextChanged="#changeSpeed"  layoutX="773.0" layoutY="441.0" prefHeight="27.0" prefWidth="34.0" text="1.0" />
     <Label layoutX="693.0" layoutY="446.0" text="Play Speed" />
     <Label fx:id="time" layoutX="831.0" layoutY="446.0" prefHeight="17.0" prefWidth="101.0" text="00:00:00" />
-    <ListView fx:id="features" layoutX="21.0" layoutY="26.0" prefHeight="390.0" prefWidth="200.0" />
     </children>
 </AnchorPane>

@@ -80,12 +80,15 @@ public class MainController {
 
    }
     public void openHandler() throws IOException, InterruptedException {
-        BarController.features.getItems().clear();
+        GraphsController.features.getItems().clear();
         FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("CSV Files only", "*.csv"));
         File file = fileChooser.showOpenDialog(null);
+        if(file == null)
+            return;
         viewModel.timeSeries = new TimeSeries(file.getPath());
         for(String feature: viewModel.timeSeries.features){
-            BarController.features.getItems().add(feature);
+            GraphsController.features.getItems().add(feature);
         }
         viewModel.model.timeSeries= viewModel.timeSeries;
         viewModel.model.displaySimulator();

@@ -17,7 +17,6 @@ import java.util.ArrayList;
 
 public class BarController {
 
-    @FXML public ListView features;
     @FXML Slider timeLine;
 
     @FXML public Button pause;

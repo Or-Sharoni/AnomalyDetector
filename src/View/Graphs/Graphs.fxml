@@ -39,5 +39,6 @@
                 <NumberAxis side="LEFT" />
             </yAxis>
         </ScatterChart>
+        <ListView fx:id="features" layoutX="21.0" layoutY="26.0" prefHeight="390.0" prefWidth="200.0" />
     </children>
 </AnchorPane>
