@@ -56,6 +56,7 @@ public class MainController {
         GraphsController.TimeStemp.bindBidirectional(viewModel.TimeStemp);
     }
    public void barBinding(){
+       BarController.timeText.bindBidirectional(viewModel.timeText);
        BarController.TimeStemp.bindBidirectional(viewModel.TimeStemp);
        BarController.speed.bindBidirectional(viewModel.speed);
        BarController.pause.setOnAction(e -> viewModel.model.Suspend());

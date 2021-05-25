@@ -1,25 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="View.Bar.BarController">
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Bar.BarController">
     <children>
-    <Slider fx:id="timeLine" layoutX="23.0" layoutY="511.0" prefHeight="16.0" prefWidth="908.0" min="1" max="2174" value="1"/>
+    <Slider fx:id="timeLine" layoutX="23.0" layoutY="511.0" max="2174" min="1" prefHeight="16.0" prefWidth="908.0" value="1" />
     <Button fx:id="open" layoutX="97.0" layoutY="441.0" mnemonicParsing="false" text="Open" />
-    <Button fx:id="tripleBack" onAction="#tripleBack" layoutX="257.0" layoutY="441.0" mnemonicParsing="false" text="&lt;&lt;&lt;" />
-    <Button fx:id="doubleBack" onAction="#doubleBack" layoutX="299.0" layoutY="441.0" mnemonicParsing="false" text="&lt;&lt;" />
+    <Button fx:id="tripleBack" layoutX="257.0" layoutY="441.0" mnemonicParsing="false" onAction="#tripleBack" text="&lt;&lt;&lt;" />
+    <Button fx:id="doubleBack" layoutX="299.0" layoutY="441.0" mnemonicParsing="false" onAction="#doubleBack" text="&lt;&lt;" />
     <Button fx:id="play" layoutX="333.0" layoutY="441.0" mnemonicParsing="false" text="play" />
     <Button fx:id="pause" layoutX="374.0" layoutY="441.0" mnemonicParsing="false" text="pause" />
     <Button fx:id="stop" layoutX="426.0" layoutY="441.0" mnemonicParsing="false" text="stop" />
-    <Button fx:id="doubleForward" onAction="#doubleForward" layoutX="469.0" layoutY="441.0" mnemonicParsing="false" text="&gt;&gt;" />
-    <Button fx:id="tripleForward" onAction="#tripleForward" layoutX="503.0" layoutY="441.0" mnemonicParsing="false" text="&gt;&gt;&gt;" />
-    <TextField fx:id="speedPlay" onInputMethodTextChanged="#changeSpeed"  layoutX="773.0" layoutY="441.0" prefHeight="27.0" prefWidth="34.0" text="1.0" />
+    <Button fx:id="doubleForward" layoutX="469.0" layoutY="441.0" mnemonicParsing="false" onAction="#doubleForward" text="&gt;&gt;" />
+    <Button fx:id="tripleForward" layoutX="503.0" layoutY="441.0" mnemonicParsing="false" onAction="#tripleForward" text="&gt;&gt;&gt;" />
+    <TextField fx:id="speedPlay" layoutX="773.0" layoutY="441.0" onInputMethodTextChanged="#changeSpeed" prefHeight="27.0" prefWidth="39.0" text="1.0" />
     <Label layoutX="693.0" layoutY="446.0" text="Play Speed" />
-    <Label fx:id="time" layoutX="831.0" layoutY="446.0" prefHeight="17.0" prefWidth="101.0" text="00:00:00" />
+    <TextField fx:id="time" layoutX="823.0" layoutY="442.0" prefHeight="17.0" prefWidth="94.0" text="00:00:00" />
     </children>
 </AnchorPane>

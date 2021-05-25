@@ -28,7 +28,10 @@ public class BarController {
     @FXML public Button tripleForward;
     @FXML public Button tripleBack;
     @FXML public TextField speedPlay;
+    @FXML public TextField time;
+    public StringProperty timeText;
     public DoubleProperty speed;
+
 
 
 
@@ -40,6 +43,7 @@ public class BarController {
     public BarController(){
         TimeStemp = new SimpleIntegerProperty();
         speed=new SimpleDoubleProperty();
+        timeText = new SimpleStringProperty();
     }
 
     public void changeSpeed(){
@@ -69,5 +73,6 @@ public class BarController {
         timeLine.valueProperty().addListener((observable, oldValue, newValue) -> {
             TimeStemp.setValue(newValue.intValue());
         });
+        timeText.addListener((observable, oldValue, newValue) -> {time.setText(newValue);});
    }
 }

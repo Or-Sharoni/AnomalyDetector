@@ -18,7 +18,7 @@ public class Model extends Observable {
 
     public DoubleProperty aileron,elevator,rudder,throttle,speed;
     public IntegerProperty TimeStemp;
-    public StringProperty altimeterText,airspeedText,directionText,pitchText,yawText,rollText;
+    public StringProperty altimeterText,airspeedText,directionText,pitchText,yawText,rollText,timeText;
     public Thread clientThread;
     public TimeSeries timeSeries;
 
@@ -37,6 +37,7 @@ public class Model extends Observable {
         pitchText = new SimpleStringProperty();
         yawText = new SimpleStringProperty();
         rollText = new SimpleStringProperty();
+        timeText = new SimpleStringProperty("00:00:00");
 
     }
 
@@ -57,6 +58,7 @@ public class Model extends Observable {
                     setYaw(array.get(20).toString());
                     setRoll(array.get(28).toString());
                     setTimeStemp(TimeStemp.getValue() + 1);
+                    setTime(flightTime(timeText.getValue()));
                     Thread.sleep((long) (100 * speed.getValue()));
                 }
       //          String[] features = new String[50];
@@ -91,6 +93,47 @@ public class Model extends Observable {
         clientThread.start();
     }
 
+    public static String flightTime(String time) {
+        String[] newArray = time.split(":");
+        int hours = Integer.parseInt(newArray[0]);
+        int minutes = Integer.parseInt(newArray[1]);
+        int seconds = Integer.parseInt(newArray[2]);
+        if (seconds == 59)
+            if(minutes == 59) {
+                seconds=0;
+                minutes = 0;
+                hours += 1;
+            } else {
+                seconds=0;
+                minutes += 1;
+            }
+        else {
+            seconds += 1;
+        }
+        if (seconds < 10)
+            newArray[2] = "0" +seconds;
+        else {
+            newArray[2] = Integer.toString(seconds);
+        }
+        if (minutes < 10)
+            newArray[1] = "0" +minutes;
+        else {
+            newArray[1] = Integer.toString(minutes);
+        }
+        if (hours < 10)
+            newArray[0] = "0" +hours;
+        else {
+            newArray[0] = Integer.toString(hours);
+        }
+        return newArray[0] + ":" + newArray[1] + ":" + newArray[2];
+    }
+
+
+    public void setTime(String Text){
+        timeText.setValue(Text);
+        setChanged();
+        notifyObservers("timeText");
+    }
     public void setAileron(Float newAileron){
         aileron.setValue(newAileron);
         setChanged();

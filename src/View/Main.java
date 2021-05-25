@@ -32,7 +32,9 @@ public class Main extends Application {
 
         primaryStage.setOnCloseRequest(event -> {
             System.out.println("bye");
+            viewModel.model.Stop();
         });
+
     }
 
 
