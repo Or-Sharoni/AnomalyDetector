@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane layoutX="641.0" layoutY="236.0" style="-fx-border-color: lightgray; -fx-border-width: 2;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.ControlPanel.ControlPanelController">
+    <Label layoutX="40.0" layoutY="-3.0" prefHeight="62.0" prefWidth="233.0" text="Control Panel">
+        <font>
+            <Font size="32.0" />
+        </font>
+    </Label>
+   <Label layoutX="16.0" layoutY="140.0" text="direction:" />
+   <Label layoutX="17.0" layoutY="108.0" text="airspeed:" />
+   <Label layoutX="13.0" layoutY="77.0" prefHeight="17.0" prefWidth="61.0" text="altimeter:" />
+   <Label layoutX="188.0" layoutY="140.0" text="yaw:" />
+   <Label layoutX="190.0" layoutY="108.0" text="roll:" />
+   <Label layoutX="187.0" layoutY="77.0" text="pitch:" />
+   <TextField fx:id="altimeter" layoutX="80.0" layoutY="73.0" prefHeight="26.0" prefWidth="53.0" />
+   <TextField fx:id="airspeed" layoutX="80.0" layoutY="104.0" prefHeight="26.0" prefWidth="53.0"  />
+   <TextField fx:id="direction" layoutX="80.0" layoutY="136.0" prefHeight="26.0" prefWidth="53.0"  />
+   <TextField fx:id="pitch" layoutX="225.0" layoutY="73.0" prefHeight="26.0" prefWidth="53.0"  />
+   <TextField fx:id="yaw" layoutX="225.0" layoutY="136.0" prefHeight="26.0" prefWidth="53.0"  />
+   <TextField fx:id="roll" layoutX="225.0" layoutY="104.0" prefHeight="26.0" prefWidth="53.0"  />
+</AnchorPane>

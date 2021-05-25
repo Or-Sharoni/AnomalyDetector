@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="550.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MainController">
+   <children>
+      <fx:include fx:id="Bar" source="Bar/Bar.fxml" />
+      <fx:include fx:id="Graphs" source="Graphs/Graphs.fxml" />
+       <fx:include fx:id="JoyStick" source="JoyStick/JoyStick.fxml" />
+       <fx:include fx:id="ControlPanel" source="ControlPanel/ControlPanel.fxml" />
+
+   </children>
+</AnchorPane>

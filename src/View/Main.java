@@ -23,7 +23,7 @@ public class Main extends Application {
         Model model = new Model();
         ViewModel viewModel = new ViewModel(model);
         controller.setViewModel(viewModel);
-
+// test comment
         model.displaySimulator();
 
         primaryStage.setTitle("Controller");
