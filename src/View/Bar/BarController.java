@@ -47,15 +47,19 @@ public class BarController {
     }
     public void doubleForward(){
         speed.setValue(0.75);
+        speedPlay.setText("1.25");
     }
     public void tripleForward(){
         speed.setValue(0.5);
+        speedPlay.setText("1.5");
     }
     public void tripleBack(){
         speed.setValue(1.5);
+        speedPlay.setText("0.5");
     }
     public void doubleBack(){
         speed.setValue(1.25);
+        speedPlay.setText("0.75");
     }
     public void initialize() {
         TimeStemp.addListener((observable, oldValue, newValue) -> {

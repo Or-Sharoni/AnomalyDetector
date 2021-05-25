@@ -24,7 +24,6 @@ public class JoyStickController {
         rudder = new SimpleDoubleProperty();
         throttle = new SimpleDoubleProperty();
 
-
         }
 
     public void initialize() {
