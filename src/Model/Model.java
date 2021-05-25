@@ -61,29 +61,10 @@ public class Model extends Observable {
                     setTime(flightTime(timeText.getValue()));
                     Thread.sleep((long) (100 * speed.getValue()));
                 }
-      //          String[] features = new String[50];
 //        Socket fg=new Socket("localhost", 5400);
  //        BufferedReader in = new BufferedReader(new FileReader("src/reg_flight.csv"));
 //        PrintWriter out=new PrintWriter(fg.getOutputStream());
-//                String line = in.readLine();
-//                while ((line = in.readLine()) != null) {
-//                    features = line.split(",");
-//                    setAileron(features[0]);
-//                    setElevator(features[1]);
-//                    setRudder(features[2]);
-//                    setThrottle(features[6]);
-//                    setAltimeter(features[25]);
-//                    setAirspeed(features[24]);
-//                    setDirection(features[36]);
-//                    setPitch(features[29]);
-//                    setYaw(features[20]);
-//                    setRoll(features[28]);
-//                    setTimeStemp(TimeStemp.getValue() + 1);
-////            out.println(line);
-////            out.flush();
-//                    Thread.sleep((long) (100 * speed));
-//
-//                }
+
             } catch (Exception e) {
             }
         });

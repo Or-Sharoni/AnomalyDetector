@@ -1,5 +1,7 @@
 package View.Graphs;
 
+import Algorithms.CorrelatedFeatures;
+import Algorithms.Hybrid;
 import Algorithms.TimeSeries;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -15,6 +17,7 @@ import javafx.scene.control.ListView;
 
 import javax.swing.*;
 import java.sql.Time;
+import java.util.HashMap;
 
 public class GraphsController {
 
@@ -30,29 +33,20 @@ public class GraphsController {
     public GraphsController() {
         selectedFeature = new SimpleStringProperty();
         TimeStemp = new SimpleIntegerProperty();
-
-        //LineChart Setup
-//        firstCorrelated.getXAxis().setTickLabelsVisible(false);
-//        firstCorrelated.getXAxis().setTickMarkVisible(false);
-//        firstCorrelated.setCreateSymbols(false);
-//
-//        secondCorrelated.getXAxis().setTickLabelsVisible(false);
-//        secondCorrelated.getXAxis().setTickMarkVisible(false);
-//        secondCorrelated.setCreateSymbols(false);
     }
 
-    public void displayGraph(){
+    public void displayGraph(LineChart graph, String feature){
         XYChart.Series series = new XYChart.Series();
-        int index = timeSeries.features.indexOf(selectedFeature.getValue());
+        int index = timeSeries.features.indexOf(feature);
         int currentTime = TimeStemp.getValue();
 
         for(int i = 0; i < currentTime; i++)
             series.getData().add(new XYChart.Data<>(String.valueOf(i),timeSeries.values.get(index).get(i)));
 
-        firstCorrelated.getXAxis().setTickLabelsVisible(false);
-        firstCorrelated.getXAxis().setTickMarkVisible(false);
-        firstCorrelated.setCreateSymbols(false);
-        firstCorrelated.getData().add(series);
+        graph.getXAxis().setTickLabelsVisible(false);
+        graph.getXAxis().setTickMarkVisible(false);
+        graph.setCreateSymbols(false);
+        graph.getData().add(series);
     }
 
     public void setTimeSeiries(TimeSeries timeSeries){ this.timeSeries = timeSeries; }
@@ -60,11 +54,17 @@ public class GraphsController {
 
     public void initialize() {
         features.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-                firstCorrelated.getData().clear();
-                System.out.println(newValue.toString());
-                selectedFeature.setValue(newValue.toString());
-                displayGraph();
-            });
+            firstCorrelated.getData().clear();
+            System.out.println(newValue.toString());
+            selectedFeature.setValue(newValue.toString());
+            displayGraph(firstCorrelated, selectedFeature.getValue());
+
+            secondCorrelated.getData().clear();
+            int index = timeSeries.features.indexOf(selectedFeature.getValue());
+            Hybrid hybrid = new Hybrid();
+            CorrelatedFeatures correlatedFeatures = hybrid.maxCorellation(timeSeries,timeSeries.values.get(index),selectedFeature.getValue(),index);
+            displayGraph(secondCorrelated, correlatedFeatures.feature2);
+        });
 
 
     }
