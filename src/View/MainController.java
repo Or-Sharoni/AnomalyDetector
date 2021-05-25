@@ -32,6 +32,7 @@ public class MainController {
         joyStickBinding();
         barBinding();
         controlPanelBinding();
+        graphsBinding();
 
 
     }
@@ -51,7 +52,9 @@ public class MainController {
        ControlPanelController.rollText.bindBidirectional(viewModel.rollText);
    }
 
-    public void graphBinding(){}
+    public void graphsBinding(){
+        GraphsController.TimeStemp.bindBidirectional(viewModel.TimeStemp);
+    }
    public void barBinding(){
        BarController.TimeStemp.bindBidirectional(viewModel.TimeStemp);
        BarController.speed.bindBidirectional(viewModel.speed);
@@ -92,6 +95,8 @@ public class MainController {
         }
         viewModel.model.timeSeries= viewModel.timeSeries;
         viewModel.model.displaySimulator();
+
+        GraphsController.setTimeSeiries(viewModel.timeSeries);
 
     }
 

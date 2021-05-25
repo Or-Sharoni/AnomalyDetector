@@ -5,6 +5,7 @@
 <?import javafx.scene.shape.Circle?>
 
 
+
 <AnchorPane layoutX="664.0" layoutY="7.0" prefHeight="214.0" prefWidth="272.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.JoyStick.JoyStickController">
     <children>
         <Circle fx:id="joystickBackground" fill="#759dc3" layoutX="170.0" layoutY="101.0" radius="80.0" stroke="BLACK" strokeType="INSIDE" />
