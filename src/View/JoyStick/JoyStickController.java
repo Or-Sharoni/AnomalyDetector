@@ -19,8 +19,8 @@ public class JoyStickController {
 
 
     public JoyStickController(){
-        aileron = new SimpleDoubleProperty(0);
-        elevator = new SimpleDoubleProperty(0);
+        aileron = new SimpleDoubleProperty(1);
+        elevator = new SimpleDoubleProperty(1);
         rudder = new SimpleDoubleProperty();
         throttle = new SimpleDoubleProperty();
 
@@ -29,8 +29,8 @@ public class JoyStickController {
     public void initialize() {
         rudder.addListener((observable, oldValue, newValue) -> {horizontal.setValue((double)newValue);});
         throttle.addListener((observable, oldValue, newValue) -> {vertical.setValue((double)newValue);});
-        aileron.addListener((observable, oldValue, newValue) -> {joystick.setCenterX(newValue.doubleValue() * 80);});
-        elevator.addListener((observable, oldValue, newValue) -> {joystick.setCenterY(newValue.doubleValue() * 80);});
+        aileron.addListener((observable, oldValue, newValue) -> {joystick.setCenterX(newValue.doubleValue()*80);});
+        elevator.addListener((observable, oldValue, newValue) -> {joystick.setCenterY(newValue.doubleValue()*80);});
     }
 
 
