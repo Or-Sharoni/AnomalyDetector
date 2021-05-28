@@ -60,30 +60,15 @@ public class MainController {
        BarController.TimeStemp.bindBidirectional(viewModel.TimeStemp);
        BarController.speed.bindBidirectional(viewModel.speed);
        BarController.pause.setOnAction(e -> viewModel.model.Suspend());
-       BarController.play.setOnAction(e -> {
-           try {
-               viewModel.model.Play();
-           } catch (IOException ioException) {
-               ioException.printStackTrace();
-           } catch (InterruptedException interruptedException) {
-               interruptedException.printStackTrace();
-           }
-       });
+       BarController.play.setOnAction(e -> viewModel.model.Play());
        BarController.stop.setOnAction(e -> viewModel.model.Stop());
-       BarController.open.setOnAction(e-> {
-           try {
-               openHandler();
-           } catch (IOException ioException) {
-               ioException.printStackTrace();
-           } catch (InterruptedException interruptedException) {
-               interruptedException.printStackTrace();
-           }
-       });
+       BarController.open.setOnAction(e-> openHandler());
 
 
 
    }
-    public void openHandler() throws IOException, InterruptedException {
+    public void openHandler(){
+
         GraphsController.features.getItems().clear();
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("CSV Files only", "*.csv"));

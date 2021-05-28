@@ -74,5 +74,13 @@ public class BarController {
             TimeStemp.setValue(newValue.intValue());
         });
         timeText.addListener((observable, oldValue, newValue) -> {time.setText(newValue);});
+        timeLine.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                System.out.println("mouse click detected! " + mouseEvent.getSource());
+            }
+        });
    }
+
+
 }

@@ -28,6 +28,7 @@ public class Model extends Observable {
         elevator = new SimpleDoubleProperty();
         rudder = new SimpleDoubleProperty(0);
         throttle = new SimpleDoubleProperty(0);
+
         TimeStemp = new SimpleIntegerProperty(1);
 
 
@@ -41,13 +42,18 @@ public class Model extends Observable {
 
     }
 
-    public void displaySimulator() throws IOException, InterruptedException {
+    public void displaySimulator(){
         clientThread = new Thread(() -> {
             try {
-                int size=timeSeries.valuesLines.size();
-                while(TimeStemp.getValue()<size){
+                int size = timeSeries.valuesLines.size();
+                Socket fg=new Socket("localhost", 5400);
+                BufferedReader in=new BufferedReader(new FileReader("src/reg_flight.csv"));
+                PrintWriter out=new PrintWriter(fg.getOutputStream());
+                String line;
+                while(TimeStemp.getValue()<size && (line=in.readLine())!=null)){
                     ArrayList<Float> array=timeSeries.valuesLines.get(TimeStemp.getValue());
                     setAileron(array.get(0));
+                    out.println();
                     setElevator(array.get(1));
                     setRudder(array.get(2));
                     setThrottle(array.get(6));
@@ -60,17 +66,14 @@ public class Model extends Observable {
                     setTimeStemp(TimeStemp.getValue() + 1);
                     setTime(flightTime(timeText.getValue()));
                     Thread.sleep((long) (100 * speed.getValue()));
+                    out.println(line);
+                    out.flush();
                 }
-//        Socket fg=new Socket("localhost", 5400);
- //        BufferedReader in = new BufferedReader(new FileReader("src/reg_flight.csv"));
-//        PrintWriter out=new PrintWriter(fg.getOutputStream());
 
             } catch (Exception e) {
+                e.printStackTrace();
             }
         });
-//        out.close();
-//        in.close();
-//        fg.close();
         clientThread.start();
     }
 
@@ -181,7 +184,7 @@ public class Model extends Observable {
 
     }
 
-    public void Play() throws IOException, InterruptedException {
+    public void Play() {
         if(clientThread.isAlive() == true)
             clientThread.resume();
         else {
@@ -204,5 +207,4 @@ public class Model extends Observable {
         clientThread.stop();
     }
 
-//    private void setSpeed(double speed){server.setSpeed(speed);}
 }
