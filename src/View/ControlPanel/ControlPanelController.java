@@ -18,12 +18,12 @@ public class ControlPanelController {
     public StringProperty altimeterText,airspeedText,directionText,pitchText,yawText,rollText;
 
     public ControlPanelController(){
-        altimeterText = new SimpleStringProperty();
-        airspeedText = new SimpleStringProperty();
-        directionText = new SimpleStringProperty();
-        pitchText = new SimpleStringProperty();
-        yawText = new SimpleStringProperty();
-        rollText = new SimpleStringProperty();
+        altimeterText = new SimpleStringProperty("0");
+        airspeedText = new SimpleStringProperty("0");
+        directionText = new SimpleStringProperty("0");
+        pitchText = new SimpleStringProperty("0");
+        yawText = new SimpleStringProperty("0");
+        rollText = new SimpleStringProperty("0");
     }
 
     public void initialize() {

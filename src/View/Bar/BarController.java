@@ -65,6 +65,10 @@ public class BarController {
         speed.setValue(1.25);
         speedPlay.setText("0.75");
     }
+    public void playNormal(){
+        speed.setValue(1);
+        speedPlay.setText("1");
+    }
     public void initialize() {
         TimeStemp.addListener((observable, oldValue, newValue) -> {
             timeLine.setValue((int)newValue);
@@ -74,12 +78,7 @@ public class BarController {
             TimeStemp.setValue(newValue.intValue());
         });
         timeText.addListener((observable, oldValue, newValue) -> {time.setText(newValue);});
-        timeLine.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                System.out.println("mouse click detected! " + mouseEvent.getSource());
-            }
-        });
+
    }
 
 

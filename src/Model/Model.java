@@ -46,28 +46,28 @@ public class Model extends Observable {
         clientThread = new Thread(() -> {
             try {
                 int size = timeSeries.valuesLines.size();
-                Socket fg=new Socket("localhost", 5400);
-                BufferedReader in=new BufferedReader(new FileReader("src/reg_flight.csv"));
-                PrintWriter out=new PrintWriter(fg.getOutputStream());
-                String line;
-                while(TimeStemp.getValue()<size && (line=in.readLine())!=null)){
-                    ArrayList<Float> array=timeSeries.valuesLines.get(TimeStemp.getValue());
-                    setAileron(array.get(0));
-                    out.println();
-                    setElevator(array.get(1));
-                    setRudder(array.get(2));
-                    setThrottle(array.get(6));
-                    setAltimeter(array.get(25).toString());
-                    setAirspeed(array.get(24).toString());
-                    setDirection(array.get(36).toString());
-                    setPitch(array.get(29).toString());
-                    setYaw(array.get(20).toString());
-                    setRoll(array.get(28).toString());
+//                Socket fg=new Socket("localhost", 5400);
+//                BufferedReader in=new BufferedReader(new FileReader("src/reg_flight.csv"));
+//                PrintWriter out=new PrintWriter(fg.getOutputStream());
+//                String line;
+                while(TimeStemp.getValue()<size){
+//                    ArrayList<Float> array=timeSeries.valuesLines.get(TimeStemp.getValue());
+                    setAileron(timeSeries.valuesLines.get(TimeStemp.getValue()).get(0));
+//                    out.println();
+                    setElevator(timeSeries.valuesLines.get(TimeStemp.getValue()).get(1));
+                    setRudder(timeSeries.valuesLines.get(TimeStemp.getValue()).get(2));
+                    setThrottle(timeSeries.valuesLines.get(TimeStemp.getValue()).get(6));
+                    setAltimeter(timeSeries.valuesLines.get(TimeStemp.getValue()).get(25).toString());
+                    setAirspeed(timeSeries.valuesLines.get(TimeStemp.getValue()).get(24).toString());
+                    setDirection(timeSeries.valuesLines.get(TimeStemp.getValue()).get(36).toString());
+                    setPitch(timeSeries.valuesLines.get(TimeStemp.getValue()).get(29).toString());
+                    setYaw(timeSeries.valuesLines.get(TimeStemp.getValue()).get(20).toString());
+                    setRoll(timeSeries.valuesLines.get(TimeStemp.getValue()).get(28).toString());
                     setTimeStemp(TimeStemp.getValue() + 1);
                     setTime(flightTime(timeText.getValue()));
                     Thread.sleep((long) (100 * speed.getValue()));
-                    out.println(line);
-                    out.flush();
+//                    out.println(line);
+//                    out.flush();
                 }
 
             } catch (Exception e) {
@@ -185,8 +185,9 @@ public class Model extends Observable {
     }
 
     public void Play() {
-        if(clientThread.isAlive() == true)
+        if(clientThread.isAlive()) {
             clientThread.resume();
+        }
         else {
             displaySimulator();
         }

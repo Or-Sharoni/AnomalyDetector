@@ -60,7 +60,7 @@ public class MainController {
        BarController.TimeStemp.bindBidirectional(viewModel.TimeStemp);
        BarController.speed.bindBidirectional(viewModel.speed);
        BarController.pause.setOnAction(e -> viewModel.model.Suspend());
-       BarController.play.setOnAction(e -> viewModel.model.Play());
+       BarController.play.setOnAction(e -> {BarController.playNormal(); viewModel.model.Play();});
        BarController.stop.setOnAction(e -> viewModel.model.Stop());
        BarController.open.setOnAction(e-> openHandler());
 
