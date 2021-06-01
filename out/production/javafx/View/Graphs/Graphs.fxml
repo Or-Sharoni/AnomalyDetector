@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -30,6 +31,9 @@
             <yAxis>
                 <NumberAxis side="LEFT" />
             </yAxis>
+         <cursor>
+            <Cursor fx:constant="N_RESIZE" />
+         </cursor>
         </ScatterChart>
         <ListView fx:id="features" layoutX="21.0" layoutY="26.0" prefHeight="390.0" prefWidth="200.0" />
     </children>
