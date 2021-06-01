@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class Hybrid {
+public class Hybrid implements Algorithms{
     ArrayList<Object> algorithms;
     ArrayList<CorrelatedFeatures> correlatedFeatures;
 
