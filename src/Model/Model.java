@@ -182,7 +182,9 @@ public class Model extends Observable {
 
     public void Play() {
         if(clientThread.isAlive()) {
+            setTime("00:00:00");
             clientThread.resume();
+
         }
         else {
             displaySimulator();
