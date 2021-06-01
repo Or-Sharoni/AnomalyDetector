@@ -9,7 +9,7 @@
 <AnchorPane layoutX="664.0" layoutY="7.0" prefHeight="214.0" prefWidth="272.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.JoyStick.JoyStickController">
     <children>
         <Circle fx:id="joystickBackground" fill="#759dc3" layoutX="170.0" layoutY="101.0" radius="80.0" stroke="BLACK" strokeType="INSIDE" />
-        <Circle fx:id="joystick"  fill="WHITE" layoutX="170.0" layoutY="101.0" radius="40.0" stroke="BLACK" strokeType="INSIDE" />
+        <Circle fx:id="joystick"  fill="WHITE" layoutX="170.0" layoutY="101.0"  radius="40.0" stroke="BLACK" strokeType="INSIDE" />
         <Slider fx:id="horizontal" layoutX="73.0" layoutY="198.0" max="1" min="-1" prefHeight="16.0" prefWidth="200.0" />
         <Slider fx:id="vertical" layoutX="40.0" layoutY="15.0" max="1" min="-1" orientation="VERTICAL" prefHeight="178.0" prefWidth="16.0" />
     </children>

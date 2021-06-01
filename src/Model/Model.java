@@ -64,7 +64,7 @@ public class Model extends Observable {
                     setYaw(timeSeries.valuesLines.get(TimeStemp.getValue()).get(20).toString());
                     setRoll(timeSeries.valuesLines.get(TimeStemp.getValue()).get(28).toString());
                     setTimeStemp(TimeStemp.getValue() + 1);
-                    setTime(flightTime(timeText.getValue()));
+                    setTime(flightTime(TimeStemp.getValue(),timeText.getValue()));
                     Thread.sleep((long) (100 * speed.getValue()));
 //                    out.println(line);
 //                    out.flush();
@@ -77,22 +77,19 @@ public class Model extends Observable {
         clientThread.start();
     }
 
-    public static String flightTime(String time) {
+    public static String flightTime(int t,String time) {
         String[] newArray = time.split(":");
         int hours = Integer.parseInt(newArray[0]);
         int minutes = Integer.parseInt(newArray[1]);
         int seconds = Integer.parseInt(newArray[2]);
-        if (seconds == 59)
-            if(minutes == 59) {
-                seconds=0;
-                minutes = 0;
-                hours += 1;
-            } else {
-                seconds=0;
-                minutes += 1;
-            }
-        else {
-            seconds += 1;
+        seconds=t;
+        if(seconds>=60) {
+            minutes = seconds / 60;
+            seconds=seconds%60;
+        }
+        if(minutes>=60) {
+            hours = minutes / 60;
+            minutes = minutes % 60;
         }
         if (seconds < 10)
             newArray[2] = "0" +seconds;
@@ -111,7 +108,6 @@ public class Model extends Observable {
         }
         return newArray[0] + ":" + newArray[1] + ":" + newArray[2];
     }
-
 
     public void setTime(String Text){
         timeText.setValue(Text);
@@ -199,6 +195,7 @@ public class Model extends Observable {
         setRudder((float) -1);
         setThrottle((float) -1);
         setTimeStemp(1);
+        setTime("00:00:00");
         setAltimeter("0");
         setAirspeed("0");
         setDirection("0");
