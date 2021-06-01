@@ -1,9 +1,6 @@
 package View.Graphs;
 
-import Algorithms.CorrelatedFeatures;
-import Algorithms.Hybrid;
-import Algorithms.SimpleAnomalyDetector;
-import Algorithms.TimeSeries;
+import Algorithms.*;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -62,7 +59,6 @@ public class GraphsController {
             correlatedGraph.getData().add(seriesCorrelated);
             graph.getData().add(series);
             anomalies.getData().addAll(series,seriesCorrelated);
-
         }
 
 
@@ -104,6 +100,5 @@ public class GraphsController {
         anomalies.getXAxis().setTickLabelsVisible(false);
         anomalies.getXAxis().setTickMarkVisible(false);
     }
-
 
 }
