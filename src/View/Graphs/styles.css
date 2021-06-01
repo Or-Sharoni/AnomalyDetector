@@ -1,4 +1,4 @@
-.chart-symbol {
+#anomalies .chart-symbol {
     -fx-background-radius: 10px;
-    -fx-padding: 1.5px ;
+    -fx-padding: 1.5px;
 }
