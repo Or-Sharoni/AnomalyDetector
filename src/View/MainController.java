@@ -31,7 +31,7 @@ public class MainController {
         this.viewModel = viewModel;
         joyStickBinding();
         barBinding();
-//        controlPanelBinding();
+        controlPanelBinding();
         graphsBinding();
 
 

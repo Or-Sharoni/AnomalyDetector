@@ -10,7 +10,7 @@
       <fx:include fx:id="Bar" source="Bar/Bar.fxml" />
       <fx:include fx:id="Graphs" source="Graphs/Graphs.fxml" />
        <fx:include fx:id="JoyStick" source="JoyStick/JoyStick.fxml" />
-       <fx:include fx:id="ControlPanel" source="ControlPanel/ControlPanel.fxml" />
+<!--       <fx:include fx:id="ControlPanel" source="ControlPanel/ControlPanel.fxml" />-->
 
    </children>
 </AnchorPane>
