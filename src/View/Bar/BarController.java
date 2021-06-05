@@ -5,13 +5,10 @@ import javafx.beans.property.*;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 
-import javafx.scene.control.ListView;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -30,12 +27,9 @@ public class BarController {
     @FXML public Button tripleBack;
     @FXML public TextField speedPlay;
     @FXML public TextField time;
+    @FXML public Label result;
     public StringProperty timeText;
     public DoubleProperty speed;
-
-
-
-
 
 
 

@@ -21,5 +21,6 @@
     <Label layoutX="693.0" layoutY="446.0" text="Play Speed" />
     <TextField fx:id="time" layoutX="823.0" layoutY="442.0" prefHeight="17.0" prefWidth="94.0" text="00:00:00" />
     <Button fx:id="select" layoutX="181.0" layoutY="442.0" mnemonicParsing="false" text="Select Detector" />
+      <Label fx:id="result" layoutX="182.0" layoutY="468.0" prefHeight="17.0" prefWidth="125.0" />
     </children>
 </AnchorPane>

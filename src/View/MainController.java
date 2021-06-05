@@ -15,11 +15,14 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 
+import java.beans.PropertyEditorSupport;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -64,15 +67,18 @@ public class MainController {
     public void graphsBinding(){
         GraphsController.TimeStemp.bindBidirectional(viewModel.TimeStemp);
     }
-   public void barBinding(){
+   public void barBinding() {
        BarController.timeText.bindBidirectional(viewModel.timeText);
        BarController.TimeStemp.bindBidirectional(viewModel.TimeStemp);
        BarController.speed.bindBidirectional(viewModel.speed);
        BarController.pause.setOnAction(e -> viewModel.model.Suspend());
-       BarController.play.setOnAction(e -> {BarController.playNormal(); viewModel.model.Play();});
+       BarController.play.setOnAction(e -> {
+           BarController.playNormal();
+           viewModel.model.Play();
+       });
        BarController.stop.setOnAction(e -> viewModel.model.Stop());
-       BarController.open.setOnAction(e-> openHandler());
-       BarController.select.setOnAction(e-> {
+       BarController.open.setOnAction(e -> openHandler());
+       BarController.select.setOnAction(e -> {
            try {
                loadAlgorithmHandler();
            } catch (MalformedURLException malformedURLException) {
@@ -106,32 +112,31 @@ public class MainController {
     }
 
     public void loadAlgorithmHandler() throws MalformedURLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-
-      String className;
+        Object algor = null;
+        BarController.result.setText("");
+        String className;
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Class Files only", "*.class"));
         File file = fileChooser.showOpenDialog(null);
-        if(file == null)
+        if(file == null) {
+            BarController.result.setText("Failed to load");
+            BarController.result.setTextFill(Color.web("red"));
             return;
+        }
+
         // load class directory
         className = file.getParentFile().getName() + "." + file.getName().substring(0,file.getName().indexOf("."));
         URL[] url = new URL[1];
         // change this path to your local one
         url[0] = new URL("file://" + file.getParentFile().getParent() + "/");
         URLClassLoader urlClassLoader = new URLClassLoader(url);
-
-        Class<?> c =urlClassLoader.loadClass(className);
-
+        Class<?> c = null;
+            c = urlClassLoader.loadClass(className);
         // create an Algorithms instance
-        Object algor = c.newInstance();
-        Stage popup = new Stage();
-        StackPane sp = new StackPane(new Label(file.getName().substring(0,file.getName().indexOf(".")) + " detector load successfully"));
-        Scene scene = new Scene(sp,400,50);
-        popup.setScene(scene);
-        PauseTransition delay = new PauseTransition(Duration.seconds(4));
-        delay.setOnFinished(e -> popup.hide());
-        popup.show();
-        delay.play();
+            algor = c.newInstance();
+        BarController.result.setText("Load Successfully!");
+        BarController.result.setTextFill(Color.web("green"));
+
         System.out.println(algor);
 
     }
