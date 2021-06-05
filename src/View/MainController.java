@@ -9,9 +9,15 @@ import View.JoyStick.JoyStickController;
 import ViewModel.ViewModel;
 import View.ControlPanel.ControlPanelController;
 
+import javafx.animation.PauseTransition;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 
 
 import java.io.File;
@@ -118,6 +124,14 @@ public class MainController {
 
         // create an Algorithms instance
         Object algor = c.newInstance();
+        Stage popup = new Stage();
+        StackPane sp = new StackPane(new Label(file.getName().substring(0,file.getName().indexOf(".")) + " detector load successfully"));
+        Scene scene = new Scene(sp,400,50);
+        popup.setScene(scene);
+        PauseTransition delay = new PauseTransition(Duration.seconds(4));
+        delay.setOnFinished(e -> popup.hide());
+        popup.show();
+        delay.play();
         System.out.println(algor);
 
     }
