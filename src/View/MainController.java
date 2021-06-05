@@ -24,14 +24,14 @@ public class MainController {
     @FXML BarController BarController;
     @FXML GraphsController GraphsController;
     @FXML JoyStickController JoyStickController;
-//    @FXML ControlPanelController ControlPanelController;
+    @FXML ControlPanelController ControlPanelController;
 
 
     public void setViewModel(ViewModel viewModel) {
         this.viewModel = viewModel;
         joyStickBinding();
         barBinding();
-//        controlPanelBinding();
+        controlPanelBinding();
         graphsBinding();
 
 
@@ -43,14 +43,14 @@ public class MainController {
         JoyStickController.rudder.bindBidirectional(viewModel.rudder);
         JoyStickController.throttle.bindBidirectional(viewModel.throttle);
    }
-//   public void controlPanelBinding() {
-//       ControlPanelController.altimeterText.bindBidirectional(viewModel.altimeterText);
-//       ControlPanelController.airspeedText.bindBidirectional(viewModel.airspeedText);
-//       ControlPanelController.directionText.bindBidirectional(viewModel.directionText);
-//       ControlPanelController.pitchText.bindBidirectional(viewModel.pitchText);
-//       ControlPanelController.yawText.bindBidirectional(viewModel.yawText);
-//       ControlPanelController.rollText.bindBidirectional(viewModel.rollText);
-//   }
+   public void controlPanelBinding() {
+       ControlPanelController.altimeterText.bindBidirectional(viewModel.altimeterText);
+       ControlPanelController.airspeedText.bindBidirectional(viewModel.airspeedText);
+       ControlPanelController.directionText.bindBidirectional(viewModel.directionText);
+       ControlPanelController.pitchText.bindBidirectional(viewModel.pitchText);
+       ControlPanelController.yawText.bindBidirectional(viewModel.yawText);
+       ControlPanelController.rollText.bindBidirectional(viewModel.rollText);
+   }
 
     public void graphsBinding(){
         GraphsController.TimeStemp.bindBidirectional(viewModel.TimeStemp);

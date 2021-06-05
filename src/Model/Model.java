@@ -65,7 +65,7 @@ public class Model extends Observable {
                     setRoll(timeSeries.valuesLines.get(TimeStemp.getValue()).get(28).toString());
                     setTimeStemp(TimeStemp.getValue() + 1);
                     setTime(flightTime(TimeStemp.getValue(),timeText.getValue()));
-                    Thread.sleep((long) (100 * speed.getValue()));
+                    clientThread.sleep((long) (100 * speed.getValue()));
 //                    out.println(line);
 //                    out.flush();
                 }

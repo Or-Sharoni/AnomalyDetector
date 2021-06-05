@@ -2,6 +2,7 @@ package Algorithms;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -65,4 +66,28 @@ public class TimeSeries {
 		valuesLines.remove(0);
 		scan.close();
 	}
+
+	public Float getMaxVal(String featureName){
+		int index = features.indexOf(featureName);
+		float max = 0;
+		ArrayList<Float> featureValues = values.get(index);
+
+		for(Float number: featureValues){
+			max = number > max ? number : max;
+		}
+		return max;
+	}
+	public Float getMinVal(String featureName){
+		int index = features.indexOf(featureName);
+		ArrayList<Float> featureValues = values.get(index);
+		float min = featureValues.get(0);
+
+
+		for(Float number: featureValues){
+			min = number > min ? number : min;
+		}
+		return min;
+	}
+
+
 }

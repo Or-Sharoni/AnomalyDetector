@@ -4,14 +4,9 @@ import Model.Model;
 import ViewModel.ViewModel;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.event.ActionEvent;
-import Algorithms.TimeSeries;
-
-import java.io.File;
 
 public class Main extends Application {
 
@@ -24,6 +19,9 @@ public class Main extends Application {
         ViewModel viewModel = new ViewModel(model);
         controller.setViewModel(viewModel);
 
+        Properties properties = new Properties();
+        properties.set();
+        properties.createXMLFile();
         model.displaySimulator();
 
         primaryStage.setTitle("Controller");
