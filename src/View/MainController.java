@@ -1,6 +1,10 @@
 package View;
 
 
+import Algorithms.Algorithms;
+import Algorithms.SimpleAnomalyDetector;
+import Algorithms.ZScore;
+import Algorithms.Hybrid;
 import Algorithms.TimeSeries;
 import View.Bar.Bar;
 import View.Bar.BarController;
@@ -9,22 +13,15 @@ import View.JoyStick.JoyStickController;
 import ViewModel.ViewModel;
 import View.ControlPanel.ControlPanelController;
 
-import javafx.animation.PauseTransition;
-import javafx.beans.property.SimpleStringProperty;
+
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
+
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-import javafx.util.Duration;
 
 
-import java.beans.PropertyEditorSupport;
+
 import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -78,6 +75,7 @@ public class MainController {
        });
        BarController.stop.setOnAction(e -> viewModel.model.Stop());
        BarController.open.setOnAction(e -> openHandler());
+       BarController.loadxml.setOnAction(e -> loadXmlHandler());
        BarController.select.setOnAction(e -> {
            try {
                loadAlgorithmHandler();
@@ -93,6 +91,7 @@ public class MainController {
        });
 
    }
+
     public void openHandler(){
 
         GraphsController.features.getItems().clear();
@@ -138,6 +137,26 @@ public class MainController {
         BarController.result.setTextFill(Color.web("green"));
 
         System.out.println(algor);
+
+    }
+
+    public void loadXmlHandler(){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("XML Files only", "*.xml"));
+        File file = fileChooser.showOpenDialog(null);
+        if(file == null)
+            return;
+        System.out.println(file.getPath());
+        Properties p = new Properties();
+        p.set(file);
+        TimeSeries ts = new TimeSeries(p.learnNormalFile);
+        SimpleAnomalyDetector ad = new SimpleAnomalyDetector();
+        ZScore zscore = new ZScore();
+        Hybrid hybrid = new Hybrid();
+        ad.learnNormal(ts);
+        zscore.learnNormal(ts);
+        hybrid.learnNormal(ts);
+        System.out.println(ad.correlatedList);
 
     }
 

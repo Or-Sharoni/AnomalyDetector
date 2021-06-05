@@ -12,6 +12,10 @@
    <string>127.0.0.1</string>
   </void>
 
+  <void property="learnNormalFile">
+   <string>/Users/or.s/ptm/AnomalyDetector/src/reg_flight.csv/</string>
+  </void>
+
   <void property="map">
    <void method="put">
     <string>Latitude</string>

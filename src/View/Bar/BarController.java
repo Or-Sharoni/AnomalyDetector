@@ -25,6 +25,7 @@ public class BarController {
     @FXML public Button doubleBack;
     @FXML public Button tripleForward;
     @FXML public Button tripleBack;
+    @FXML public Button loadxml;
     @FXML public TextField speedPlay;
     @FXML public TextField time;
     @FXML public Label result;

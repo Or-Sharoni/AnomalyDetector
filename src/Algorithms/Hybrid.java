@@ -60,8 +60,6 @@ public class Hybrid implements Algorithms{
 
     public void learnNormal(TimeSeries ts){
         correlatedFeatures = ListMaker(ts);
-        for(CorrelatedFeatures cr: correlatedFeatures)
-            System.out.println(cr.feature1 + " " + cr.feature2 +" "+ cr.corrlation + "  " +cr.index1 + "  "+  cr.index2);
 
         TimeSeries timeSeries;
         algorithms = new ArrayList<>();
@@ -98,6 +96,7 @@ public class Hybrid implements Algorithms{
             }
 
         }
+        System.out.println("Hybrid OK!!!!");
 
 
     }

@@ -32,7 +32,7 @@ public class Main extends Application {
         controller.setViewModel(viewModel);
 
         Properties properties = new Properties();
-        properties.set();
+     //   properties.set();
         properties.createXMLFile();
         model.displaySimulator();
 
