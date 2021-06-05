@@ -48,21 +48,8 @@ public class Main extends Application {
     }
 
 
-    public static void main(String[] args) throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+    public static void main(String[] args) {
         launch(args);
-        String input,className;
-        className = "algo.ZScore";
-        // load class directory
-        URL[] url = new URL[1];
-        // change this path to your local one
-        url[0] = new URL("file:///Users/or.s/IdeaProjects/plugin/out/production/plugin/");
-        URLClassLoader urlClassLoader = new URLClassLoader(url);
-
-        Class<?> c =urlClassLoader.loadClass(className);
-
-        // create an Algorithms instance
-        Object algor = c.newInstance();
-        System.out.println(algor);
 
     }
 

@@ -16,6 +16,9 @@ import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
 
 
 public class MainController {
@@ -63,6 +66,19 @@ public class MainController {
        BarController.play.setOnAction(e -> {BarController.playNormal(); viewModel.model.Play();});
        BarController.stop.setOnAction(e -> viewModel.model.Stop());
        BarController.open.setOnAction(e-> openHandler());
+       BarController.select.setOnAction(e-> {
+           try {
+               loadAlgorithmHandler();
+           } catch (MalformedURLException malformedURLException) {
+               malformedURLException.printStackTrace();
+           } catch (ClassNotFoundException classNotFoundException) {
+               classNotFoundException.printStackTrace();
+           } catch (InstantiationException instantiationException) {
+               instantiationException.printStackTrace();
+           } catch (IllegalAccessException illegalAccessException) {
+               illegalAccessException.printStackTrace();
+           }
+       });
 
    }
     public void openHandler(){
@@ -81,6 +97,28 @@ public class MainController {
         viewModel.model.displaySimulator();
 
         GraphsController.setTimeSeiries(viewModel.timeSeries);
+    }
+
+    public void loadAlgorithmHandler() throws MalformedURLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+
+      String className;
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Class Files only", "*.class"));
+        File file = fileChooser.showOpenDialog(null);
+        if(file == null)
+            return;
+        // load class directory
+        className = file.getParentFile().getName() + "." + file.getName().substring(0,file.getName().indexOf("."));
+        URL[] url = new URL[1];
+        // change this path to your local one
+        url[0] = new URL("file://" + file.getParentFile().getParent() + "/");
+        URLClassLoader urlClassLoader = new URLClassLoader(url);
+
+        Class<?> c =urlClassLoader.loadClass(className);
+
+        // create an Algorithms instance
+        Object algor = c.newInstance();
+        System.out.println(algor);
 
     }
 

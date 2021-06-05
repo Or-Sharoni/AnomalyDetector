@@ -23,6 +23,7 @@ public class BarController {
     @FXML public Button play;
     @FXML public Button stop;
     @FXML public Button open;
+    @FXML public Button select;
     @FXML public Button doubleForward;
     @FXML public Button doubleBack;
     @FXML public Button tripleForward;
