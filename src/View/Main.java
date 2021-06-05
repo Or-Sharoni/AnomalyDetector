@@ -9,8 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-<<<<<<< HEAD
-=======
+
 import javafx.event.ActionEvent;
 import Algorithms.TimeSeries;
 
@@ -20,8 +19,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLClassLoader;
-
->>>>>>> 0ee074c184126907adbd9127ff640fa1e03239ae
 
 public class Main extends Application {
 
