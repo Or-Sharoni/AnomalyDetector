@@ -5,7 +5,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ZScore {
+public class ZScore implements Algorithms{
 
     ArrayList<Double> trainingData;
     ArrayList<String> features;

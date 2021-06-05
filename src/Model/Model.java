@@ -2,6 +2,7 @@ package Model;
 
 import Algorithms.TimeSeries;
 import ViewModel.ViewModel;
+import javafx.application.Platform;
 import javafx.beans.property.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -30,7 +31,6 @@ public class Model extends Observable {
         throttle = new SimpleDoubleProperty(0);
 
         TimeStemp = new SimpleIntegerProperty(1);
-
 
         altimeterText = new SimpleStringProperty();
         airspeedText = new SimpleStringProperty();
@@ -182,7 +182,9 @@ public class Model extends Observable {
 
     public void Play() {
         if(clientThread.isAlive()) {
+            setTime("00:00:00");
             clientThread.resume();
+
         }
         else {
             displaySimulator();

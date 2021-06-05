@@ -64,8 +64,6 @@ public class MainController {
        BarController.stop.setOnAction(e -> viewModel.model.Stop());
        BarController.open.setOnAction(e-> openHandler());
 
-
-
    }
     public void openHandler(){
 
