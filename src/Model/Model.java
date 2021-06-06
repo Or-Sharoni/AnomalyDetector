@@ -1,6 +1,7 @@
 package Model;
 
 import Algorithms.TimeSeries;
+import View.Bar.BarController;
 import ViewModel.ViewModel;
 import javafx.application.Platform;
 import javafx.beans.property.*;
@@ -22,9 +23,11 @@ public class Model extends Observable {
     public StringProperty altimeterText,airspeedText,directionText,pitchText,yawText,rollText,timeText;
     public Thread clientThread;
     public TimeSeries timeSeries;
+    public String ip;
+    public int port;
 
     public Model() {
-        speed = new SimpleDoubleProperty(1);
+        speed = new SimpleDoubleProperty();
         aileron = new SimpleDoubleProperty();
         elevator = new SimpleDoubleProperty();
         rudder = new SimpleDoubleProperty(0);
@@ -46,7 +49,7 @@ public class Model extends Observable {
         clientThread = new Thread(() -> {
             try {
                 int size = timeSeries.valuesLines.size();
-//                Socket fg=new Socket("localhost", 5400);
+//                Socket fg=new Socket(ip, port); // bind with xml :)
 //                BufferedReader in=new BufferedReader(new FileReader("src/reg_flight.csv"));
 //                PrintWriter out=new PrintWriter(fg.getOutputStream());
 //                String line;

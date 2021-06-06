@@ -25,6 +25,9 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 
 public class MainController {
@@ -34,7 +37,7 @@ public class MainController {
     @FXML GraphsController GraphsController;
     @FXML JoyStickController JoyStickController;
     @FXML ControlPanelController ControlPanelController;
-
+    Properties oldXML = new Properties();
 
     public void setViewModel(ViewModel viewModel) {
         this.viewModel = viewModel;
@@ -42,8 +45,6 @@ public class MainController {
         barBinding();
         controlPanelBinding();
         graphsBinding();
-
-
     }
 
     public void joyStickBinding(){
@@ -69,10 +70,7 @@ public class MainController {
        BarController.TimeStemp.bindBidirectional(viewModel.TimeStemp);
        BarController.speed.bindBidirectional(viewModel.speed);
        BarController.pause.setOnAction(e -> viewModel.model.Suspend());
-       BarController.play.setOnAction(e -> {
-           BarController.playNormal();
-           viewModel.model.Play();
-       });
+       BarController.play.setOnAction(e -> viewModel.model.Play());
        BarController.stop.setOnAction(e -> viewModel.model.Stop());
        BarController.open.setOnAction(e -> openHandler());
        BarController.loadxml.setOnAction(e -> loadXmlHandler());
@@ -92,23 +90,43 @@ public class MainController {
 
    }
 
-    public void openHandler(){
+
+
+
+
+    public void openHandler() {
 
         GraphsController.features.getItems().clear();
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("CSV Files only", "*.csv"));
         File file = fileChooser.showOpenDialog(null);
-        if(file == null)
+        if (file == null) {
+            BarController.result.setText("Failed to load");
+            BarController.result.setTextFill(Color.web("red"));
             return;
+        }
         viewModel.timeSeries = new TimeSeries(file.getPath());
-        for(String feature: viewModel.timeSeries.features){
+        Set<String> featuresSet = new HashSet<String>();
+        for (String feature : viewModel.timeSeries.features) {
+            featuresSet.add(feature);
+        }
+        for (Map.Entry<String, Feature> entry : oldXML.map.entrySet()) {
+            if (!featuresSet.contains(entry.getValue().featureName)) {
+                BarController.result.setText("Failed to load\n Please try again");
+                BarController.result.setTextFill(Color.web("red"));
+                return;
+            }
+        }
+        for (String feature : viewModel.timeSeries.features) {
             GraphsController.features.getItems().add(feature);
         }
-        viewModel.model.timeSeries= viewModel.timeSeries;
+        viewModel.model.timeSeries = viewModel.timeSeries;
         viewModel.model.displaySimulator();
-
         GraphsController.setTimeSeiries(viewModel.timeSeries);
+        viewModel.model.port = oldXML.port;
+        viewModel.model.ip = oldXML.ip;
     }
+
 
     public void loadAlgorithmHandler() throws MalformedURLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         Object algor = null;
@@ -122,7 +140,6 @@ public class MainController {
             BarController.result.setTextFill(Color.web("red"));
             return;
         }
-
         // load class directory
         className = file.getParentFile().getName() + "." + file.getName().substring(0,file.getName().indexOf("."));
         URL[] url = new URL[1];
@@ -146,17 +163,30 @@ public class MainController {
         File file = fileChooser.showOpenDialog(null);
         if(file == null)
             return;
-        System.out.println(file.getPath());
-        Properties p = new Properties();
-        p.set(file);
-        TimeSeries ts = new TimeSeries(p.learnNormalFile);
+        Properties newXML = new Properties();
+        oldXML.set("/Users/or.s/ptm/AnomalyDetector/src/properties.xml");
+        newXML.set(file.getPath());
+// test XML
+        for(Map.Entry<String,Feature> entry : oldXML.map.entrySet()){
+           if(!newXML.map.containsKey(entry.getKey())){
+               BarController.result.setText("Failed to load\n Please try again");
+               BarController.result.setTextFill(Color.web("red"));
+               return;
+           }
+        }
+        BarController.result.setText("Load Successfully!");
+        BarController.result.setTextFill(Color.web("green"));
+        oldXML.set(file.getPath());
+        viewModel.speed.setValue(1/newXML.defaultSpeed);
+        BarController.speedPlay.setText(String.valueOf(newXML.defaultSpeed));
+        TimeSeries ts = new TimeSeries(newXML.learnNormalFile);
         SimpleAnomalyDetector ad = new SimpleAnomalyDetector();
         ZScore zscore = new ZScore();
         Hybrid hybrid = new Hybrid();
         ad.learnNormal(ts);
-        zscore.learnNormal(ts);
-        hybrid.learnNormal(ts);
-        System.out.println(ad.correlatedList);
+//        zscore.learnNormal(ts);
+//        hybrid.learnNormal(ts);
+//        System.out.println(ad.correlatedList);
 
     }
 
