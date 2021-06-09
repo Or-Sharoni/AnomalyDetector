@@ -61,10 +61,6 @@ public class BarController {
         speed.setValue(1.25);
         speedPlay.setText("0.75");
     }
-    public void playNormal(){
-        speed.setValue(1);
-        speedPlay.setText("1");
-    }
     public void initialize() {
         TimeStemp.addListener((observable, oldValue, newValue) -> {
             timeLine.setValue((int)newValue);

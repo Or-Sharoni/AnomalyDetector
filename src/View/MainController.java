@@ -122,6 +122,7 @@ public class MainController {
         }
         viewModel.model.timeSeries = viewModel.timeSeries;
         viewModel.model.displaySimulator();
+        viewModel.model.Stop();
         GraphsController.setTimeSeiries(viewModel.timeSeries);
         viewModel.model.port = oldXML.port;
         viewModel.model.ip = oldXML.ip;
@@ -164,7 +165,7 @@ public class MainController {
         if(file == null)
             return;
         Properties newXML = new Properties();
-        oldXML.set("/Users/or.s/ptm/AnomalyDetector/src/properties.xml");
+        oldXML.set("src/properties.xml");
         newXML.set(file.getPath());
 // test XML
         for(Map.Entry<String,Feature> entry : oldXML.map.entrySet()){

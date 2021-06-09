@@ -55,10 +55,4 @@ public class Properties{
     public void setDefaultSpeed(double speed){this.defaultSpeed = speed;}
     public void setDefaultAlgorithm(String path){this.defaultAlgorithm = path;}
 
-    public boolean validition(){
-        for(Map.Entry<String,Feature> entry: map.entrySet()){
-            System.out.println(entry.getValue().featureName);
-        }
-        return true;
-    }
 }
