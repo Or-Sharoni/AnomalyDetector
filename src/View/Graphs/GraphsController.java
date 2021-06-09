@@ -1,6 +1,7 @@
 package View.Graphs;
 
 import Algorithms.*;
+import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -8,10 +9,13 @@ import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ListView;
+import javafx.scene.paint.Color;
 
 import javax.swing.*;
 import java.sql.Time;
@@ -21,84 +25,103 @@ public class GraphsController {
 
     @FXML LineChart firstCorrelated;
     @FXML LineChart secondCorrelated;
-    @FXML ScatterChart anomalies;
+    @FXML Canvas anomalies;
     @FXML public ListView features;
 
+
+    GraphicsContext gc;
     TimeSeries timeSeries;
     StringProperty selectedFeature;
     public IntegerProperty TimeStemp;
     TimeSeries detect;
+    Thread graphThread;
+
+    XYChart.Series series;
+    XYChart.Series correlatedSeries;
+
+    int index1;
+    int index2;
 
     public GraphsController() {
         selectedFeature = new SimpleStringProperty();
         TimeStemp = new SimpleIntegerProperty();
     }
 
-    public void displayGraph(LineChart graph, LineChart correlatedGraph, String feature, String correlatedFeature){
-        XYChart.Series series = new XYChart.Series();
-        XYChart.Series seriesCorrelated = new XYChart.Series();
-
-        int index = timeSeries.features.indexOf(feature);
-        int currentTime = TimeStemp.getValue();
-
-        if(correlatedFeature == null){
-            for(int i = 0; i < currentTime; i++)
-                series.getData().add(new XYChart.Data<>(String.valueOf(i),timeSeries.values.get(index).get(i)));
-            graph.getData().add(series);
-            anomalies.getData().add(series);
-
+    public void displayGraphs() {
+         series = new XYChart.Series<>();
+         correlatedSeries = new XYChart.Series<>();
+        for(Integer time=0;time<TimeStemp.getValue();time++){
+            series.getData().add(new XYChart.Data<>(time.toString(), timeSeries.values.get(index1).get(time)));
+            correlatedSeries.getData().add(new XYChart.Data<>(time.toString(), timeSeries.values.get(index2).get(time)));
         }
-        else {
-            int correlatedIndex = timeSeries.features.indexOf(correlatedFeature);
-
-            for (int i = 0; i < currentTime; i++) {
-                series.getData().add(new XYChart.Data(String.valueOf(i), timeSeries.values.get(index).get(i)));
-                seriesCorrelated.getData().add(new XYChart.Data(String.valueOf(i), timeSeries.values.get(correlatedIndex).get(i)));
-            }
-
-            correlatedGraph.getData().add(seriesCorrelated);
-            graph.getData().add(series);
-            anomalies.getData().addAll(series,seriesCorrelated);
-        }
-
-
-
+        firstCorrelated.getData().add(series);
+        secondCorrelated.getData().add(correlatedSeries);
     }
+
+//    public void updateGraph(){
+//        listener = new ChangeListener() {
+//            @Override
+//            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+////                series.getData().add(new XYChart.Data<>(newValue.toString(), timeSeries.values.get(index1).get((int)newValue)));
+////                correlatedSeries.getData().add(new XYChart.Data<>(newValue.toString(), timeSeries.values.get(index2).get((int)newValue)));
+//                System.out.println((int)newValue);
+//            }
+//        };
+//    }
 
     public void setTimeSeiries(TimeSeries timeSeries){ this.timeSeries = timeSeries; }
-    public void changingFeatureHandler(String newValue){
-        selectedFeature.setValue(newValue);
-
-        //Check the most correlated feature to the new value
-        int index = timeSeries.features.indexOf(newValue);
-        Hybrid hybrid = new Hybrid();
-        CorrelatedFeatures correlatedFeatures = hybrid.maxCorellation(timeSeries,timeSeries.values.get(index),newValue,index);
-
-        //Clear previous data
+    public void changingFeatureHandler(String newFeature){
+        //Clear the previous data
         firstCorrelated.getData().clear();
         secondCorrelated.getData().clear();
-        anomalies.getData().clear();
 
-        SimpleAnomalyDetector simpleAnomalyDetector = new SimpleAnomalyDetector();
-        simpleAnomalyDetector.learnNormal(timeSeries);
-        detect = new TimeSeries("src/anomaly_flight.csv");
-        simpleAnomalyDetector.detect(detect);
-
-        //Display the new features with the match correlated feature
-        displayGraph(firstCorrelated,secondCorrelated , newValue,correlatedFeatures.feature2);
-
+        //Print out the graphs data
+        index1 = timeSeries.features.indexOf(newFeature);
+        Hybrid hybrid = new Hybrid();
+        CorrelatedFeatures correlatedFeatures = hybrid.maxCorellation(timeSeries,timeSeries.values.get(index1),newFeature,index1);
+        index2 = (correlatedFeatures.feature2 != null) ?  timeSeries.features.indexOf(correlatedFeatures.feature2) : index1;
+        displayGraphs();
     }
 
-    public void initialize() {
-        features.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> changingFeatureHandler(newValue.toString()));
+    public void initAnomaliesGraph(){
+        gc = anomalies.getGraphicsContext2D();
+        gc.setFill(Color.BLACK);
+        gc.beginPath();
+        gc.moveTo(0,1);
+        gc.lineTo(0,anomalies.getHeight());
+        gc.moveTo(0,anomalies.getHeight()-1);
+        gc.lineTo(anomalies.getWidth()-1,anomalies.getHeight()-1);
+        gc.stroke();
+    }
+
+    public void chartGraphsSettings(){
         firstCorrelated.getXAxis().setTickLabelsVisible(false);
         firstCorrelated.getXAxis().setTickMarkVisible(false);
         firstCorrelated.setCreateSymbols(false);
         secondCorrelated.getXAxis().setTickLabelsVisible(false);
         secondCorrelated.getXAxis().setTickMarkVisible(false);
         secondCorrelated.setCreateSymbols(false);
-        anomalies.getXAxis().setTickLabelsVisible(false);
-        anomalies.getXAxis().setTickMarkVisible(false);
     }
 
+    public void initialize() {
+        features.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                Platform.runLater(() -> {
+                    changingFeatureHandler(newValue.toString());
+                });
+            }
+        });
+        chartGraphsSettings();
+        initAnomaliesGraph();
+        TimeStemp.addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                Platform.runLater(() -> {
+                series.getData().add(new XYChart.Data<>(newValue.toString(), timeSeries.values.get(index1).get(newValue.intValue())));
+                correlatedSeries.getData().add(new XYChart.Data<>(newValue.toString(), timeSeries.values.get(index2).get(newValue.intValue())));
+                });
+            }
+        });
+    }
 }

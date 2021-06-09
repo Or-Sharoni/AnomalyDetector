@@ -1,7 +1,10 @@
 package View.Bar;
 
 import Algorithms.TimeSeries;
+import javafx.application.Platform;
 import javafx.beans.property.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -14,8 +17,7 @@ import java.util.ArrayList;
 
 public class BarController {
 
-    @FXML Slider timeLine;
-
+    @FXML public Slider timeLine;
     @FXML public Button pause;
     @FXML public Button play;
     @FXML public Button stop;
@@ -66,14 +68,34 @@ public class BarController {
         speedPlay.setText("1");
     }
     public void initialize() {
-        TimeStemp.addListener((observable, oldValue, newValue) -> {
-            timeLine.setValue((int)newValue);
+        TimeStemp.addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                Platform.runLater(()->{timeLine.setValue((int)newValue);});
+            }
         });
 
-        timeLine.valueProperty().addListener((observable, oldValue, newValue) -> {
-            TimeStemp.setValue(newValue.intValue());
+
+        timeLine.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                Platform.runLater(()->{
+                    TimeStemp.setValue(newValue.intValue());
+                });
+            }
         });
-        timeText.addListener((observable, oldValue, newValue) -> {time.setText(newValue);});
+
+        timeText.addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                Platform.runLater(()->{time.setText(newValue);});
+            }
+        });
+
+//        timeLine.valueProperty().addListener((observable, oldValue, newValue) -> {
+//            TimeStemp.setValue(newValue.intValue());
+//        });
+//        timeText.addListener((observable, oldValue, newValue) -> {time.setText(newValue);});
 
    }
 

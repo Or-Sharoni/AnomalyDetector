@@ -1,7 +1,10 @@
 package View.ControlPanel;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
@@ -27,13 +30,47 @@ public class ControlPanelController {
     }
 
     public void initialize() {
-        altimeterText.addListener((observable, oldValue, newValue) -> {altimeter.setText(newValue);});
-        airspeedText.addListener((observable, oldValue, newValue) -> {airspeed.setText(newValue);});
-        directionText.addListener((observable, oldValue, newValue) -> {direction.setText(newValue);});
-        pitchText.addListener((observable, oldValue, newValue) -> {pitch.setText(newValue);});
-        yawText.addListener((observable, oldValue, newValue) -> {yaw.setText(newValue);});
-        rollText.addListener((observable, oldValue, newValue) -> {roll.setText(newValue);});
+        altimeterText.addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                Platform.runLater(() -> {altimeter.setText(newValue);});
+            }
+        });
 
+        airspeedText.addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                Platform.runLater(() -> {airspeed.setText(newValue);});
+            }
+        });
+
+        directionText.addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                Platform.runLater(() -> {direction.setText(newValue);});
+            }
+        });
+
+        pitchText.addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                Platform.runLater(() -> {pitch.setText(newValue);});
+            }
+        });
+
+        yawText.addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                Platform.runLater(() -> {yaw.setText(newValue);});
+            }
+        });
+
+        rollText.addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                Platform.runLater(() -> {roll.setText(newValue);});
+            }
+        });
 
     }
 

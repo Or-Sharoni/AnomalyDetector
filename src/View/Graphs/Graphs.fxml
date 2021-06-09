@@ -5,6 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.canvas.Canvas?>
 <AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Graphs.GraphsController">
 
     <children>
@@ -24,17 +25,7 @@
                 <NumberAxis side="LEFT" />
             </yAxis>
         </LineChart>
-        <ScatterChart fx:id="anomalies" layoutX="221.0" layoutY="176.0" prefHeight="223.0" prefWidth="379.0" stylesheets="@styles.css">
-            <xAxis>
-                <CategoryAxis side="BOTTOM" />
-            </xAxis>
-            <yAxis>
-                <NumberAxis side="LEFT" />
-            </yAxis>
-         <cursor>
-            <Cursor fx:constant="N_RESIZE" />
-         </cursor>
-        </ScatterChart>
+        <Canvas fx:id="anomalies" height="230.0" width="330.0" layoutX="260.0" layoutY="180.0"/>
         <ListView fx:id="features" layoutX="21.0" layoutY="26.0" prefHeight="390.0" prefWidth="200.0" />
     </children>
 </AnchorPane>

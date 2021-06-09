@@ -1,8 +1,11 @@
 package View.JoyStick;
 
 import ViewModel.ViewModel;
+import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Control;
 import javafx.scene.control.Slider;
@@ -27,10 +30,40 @@ public class JoyStickController {
         }
 
     public void initialize() {
-        rudder.addListener((observable, oldValue, newValue) -> {horizontal.setValue((double)newValue);});
-        throttle.addListener((observable, oldValue, newValue) -> {vertical.setValue((double)newValue);});
-        aileron.addListener((observable, oldValue, newValue) -> {joystick.setCenterX(newValue.doubleValue()*80);});
-        elevator.addListener((observable, oldValue, newValue) -> {joystick.setCenterY(newValue.doubleValue()*80);});
+
+        rudder.addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                Platform.runLater(()->{horizontal.setValue((double)newValue);});
+            }
+        });
+
+        throttle.addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                Platform.runLater(()->{vertical.setValue((double)newValue);});
+            }
+        });
+
+        aileron.addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                Platform.runLater(()->{joystick.setCenterX(newValue.doubleValue()*80);});
+            }
+        });
+
+        elevator.addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                Platform.runLater(()->{joystick.setCenterY(newValue.doubleValue()*80);});
+            }
+        });
+
+
+//        rudder.addListener((observable, oldValue, newValue) -> {horizontal.setValue((double)newValue);});
+//        throttle.addListener((observable, oldValue, newValue) -> {vertical.setValue((double)newValue);});
+//        aileron.addListener((observable, oldValue, newValue) -> {joystick.setCenterX(newValue.doubleValue()*80);});
+//        elevator.addListener((observable, oldValue, newValue) -> {joystick.setCenterY(newValue.doubleValue()*80);});
     }
 
 

@@ -14,6 +14,9 @@ import ViewModel.ViewModel;
 import View.ControlPanel.ControlPanelController;
 
 
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 
 import javafx.scene.paint.Color;
@@ -106,7 +109,7 @@ public class MainController {
         }
         viewModel.model.timeSeries= viewModel.timeSeries;
         viewModel.model.displaySimulator();
-
+        viewModel.model.Suspend();
         GraphsController.setTimeSeiries(viewModel.timeSeries);
     }
 
@@ -161,12 +164,26 @@ public class MainController {
     }
 
     public void initialize() {
-        BarController.TimeStemp.addListener((observable, oldValue, newValue) -> {
-            viewModel.model.TimeStemp.setValue(newValue.intValue());
+
+        BarController.TimeStemp.addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                Platform.runLater(()->{viewModel.model.TimeStemp.setValue(newValue.intValue());});
+            }
         });
 
-        BarController.speed.addListener((observable, oldValue, newValue) -> {
-            viewModel.model.speed.setValue(newValue.doubleValue());
+        BarController.speed.addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                Platform.runLater(()->{viewModel.model.speed.setValue(newValue.doubleValue());});
+            }
         });
+//        BarController.TimeStemp.addListener((observable, oldValue, newValue) -> {
+//            viewModel.model.TimeStemp.setValue(newValue.intValue());
+//        });
+//
+//        BarController.speed.addListener((observable, oldValue, newValue) -> {
+//            viewModel.model.speed.setValue(newValue.doubleValue());
+//        });
     }
 }

@@ -84,10 +84,11 @@ public class TimeSeries {
 
 
 		for(Float number: featureValues){
-			min = number > min ? number : min;
+			min = number < min ? number : min;
 		}
 		return min;
 	}
+
 
 
 }
