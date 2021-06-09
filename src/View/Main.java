@@ -3,6 +3,7 @@ package View;
 import Algorithms.Algorithms;
 import Model.Model;
 import ViewModel.ViewModel;
+import Algorithms.Hybrid;
 import Algorithms.SimpleAnomalyDetector;
 import Algorithms.AnomalyReport;
 import com.sun.org.apache.xpath.internal.operations.Mod;
@@ -59,8 +60,15 @@ public class Main extends Application {
 //        SimpleAnomalyDetector simpleAnomalyDetector = new SimpleAnomalyDetector();
 //        simpleAnomalyDetector.learnNormal(ts1);
 //        List<AnomalyReport> anomalyReportList = simpleAnomalyDetector.detect(ts2);
-//        for(AnomalyReport anomalyReport: anomalyReportList)
+//        for(AnomalyReport anomalyReport: anomalyReportList){
 //            System.out.println(anomalyReport.timeStep +  "        " +anomalyReport.description);
+//        Hybrid hybrid = new Hybrid();
+//        hybrid.learnNormal(ts1);
+//        List<AnomalyReport> anomalyReportList = hybrid.detect(ts2);
+//        for(AnomalyReport anomalyReport: anomalyReportList){
+//            System.out.println(anomalyReport.description + "  " + anomalyReport.timeStep);
+//        }
+
     }
 
 

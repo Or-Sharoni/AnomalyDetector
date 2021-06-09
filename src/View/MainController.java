@@ -172,7 +172,17 @@ public class MainController {
             GraphsController.setAnomaliesReports(anomalyReportList);
         }
 
+        if(algor instanceof Hybrid) {
+            ((Hybrid) algor).learnNormal(ts);
+            List<AnomalyReport> anomalyReportList= ((Hybrid) algor).detect(viewModel.timeSeries);
+            GraphsController.setAnomaliesReports(anomalyReportList);
+        }
 
+        if(algor instanceof ZScore) {
+            ((ZScore) algor).learnNormal(ts);
+            List<AnomalyReport> anomalyReportList= ((ZScore) algor).detect(viewModel.timeSeries);
+            GraphsController.setAnomaliesReports(anomalyReportList);
+        }
 
     }
 

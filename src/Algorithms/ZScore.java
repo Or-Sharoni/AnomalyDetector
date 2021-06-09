@@ -58,10 +58,7 @@ public class ZScore implements Algorithms{
             trainingData.add(tx);
             tx = 0;
 
-
         }
-        System.out.println("Zscore OK!!!!");
-
     }
 
     public List<AnomalyReport> detect(TimeSeries ts) {

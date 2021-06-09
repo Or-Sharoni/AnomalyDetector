@@ -96,8 +96,6 @@ public class Hybrid implements Algorithms{
             }
 
         }
-        System.out.println("Hybrid OK!!!!");
-
 
     }
     public List<AnomalyReport> detect(TimeSeries ts){
