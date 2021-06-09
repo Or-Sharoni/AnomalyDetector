@@ -33,7 +33,6 @@ public class Main extends Application {
 
         Properties properties = new Properties();
      //   properties.set();
-        properties.createXMLFile();
         model.displaySimulator();
 
         primaryStage.setTitle("Controller");

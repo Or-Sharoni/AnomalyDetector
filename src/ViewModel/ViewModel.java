@@ -25,25 +25,24 @@ public class ViewModel implements Observer {
         this.model = model;
 
         //Double Properties
-        aileron = new SimpleDoubleProperty();
-        elevator = new SimpleDoubleProperty();
-        rudder = new SimpleDoubleProperty();
-        throttle = new SimpleDoubleProperty();
-        speed = new SimpleDoubleProperty();
+        aileron = new SimpleDoubleProperty(0);
+        elevator = new SimpleDoubleProperty(0);
+        rudder = new SimpleDoubleProperty(0);
+        throttle = new SimpleDoubleProperty(0);
+        speed = new SimpleDoubleProperty(1);
 
         //Strings Properties
-        altimeterText = new SimpleStringProperty();
-        airspeedText = new SimpleStringProperty();
-        directionText = new SimpleStringProperty();
-        pitchText = new SimpleStringProperty();
-        yawText = new SimpleStringProperty();
-        rollText = new SimpleStringProperty();
-        timeText = new SimpleStringProperty();
+        altimeterText = new SimpleStringProperty("0");
+        airspeedText = new SimpleStringProperty("0");
+        directionText = new SimpleStringProperty("0");
+        pitchText = new SimpleStringProperty("0");
+        yawText = new SimpleStringProperty("0");
+        rollText = new SimpleStringProperty("0");
+        timeText = new SimpleStringProperty("00:00:00");
 
 
         //Integer Properties
-        TimeStemp = new SimpleIntegerProperty();
-        aileron.setValue(1);
+        TimeStemp = new SimpleIntegerProperty(1);
         this.model.addObserver(this);
     }
 

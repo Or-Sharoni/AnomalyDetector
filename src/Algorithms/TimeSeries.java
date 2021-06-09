@@ -79,6 +79,7 @@ public class TimeSeries {
 	}
 	public Float getMinVal(String featureName){
 		int index = features.indexOf(featureName);
+
 		ArrayList<Float> featureValues = values.get(index);
 		float min = featureValues.get(0);
 

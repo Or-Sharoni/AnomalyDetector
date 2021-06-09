@@ -129,7 +129,7 @@ public class MainController {
         }
         viewModel.model.timeSeries = viewModel.timeSeries;
         viewModel.model.displaySimulator();
-        viewModel.model.Stop();
+        viewModel.model.Suspend();
         GraphsController.setTimeSeiries(viewModel.timeSeries);
         viewModel.model.port = oldXML.port;
         viewModel.model.ip = oldXML.ip;
@@ -173,7 +173,7 @@ public class MainController {
             return;
         Properties newXML = new Properties();
         newXML.set(file.getPath());
-// test XML
+        // test XML
         for(Map.Entry<String,Feature> entry : oldXML.map.entrySet()){
            if(!newXML.map.containsKey(entry.getKey())){
                BarController.result.setText("Failed to load\n Please try again");
@@ -190,7 +190,7 @@ public class MainController {
         SimpleAnomalyDetector ad = new SimpleAnomalyDetector();
         ZScore zscore = new ZScore();
         Hybrid hybrid = new Hybrid();
-        ad.learnNormal(ts);
+//        ad.learnNormal(ts);
 //        zscore.learnNormal(ts);
 //        hybrid.learnNormal(ts);
 //        System.out.println(ad.correlatedList);

@@ -72,14 +72,14 @@ public class BarController {
         });
 
 
-        timeLine.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                Platform.runLater(()->{
-                    TimeStemp.setValue(newValue.intValue());
-                });
-            }
-        });
+//        timeLine.valueProperty().addListener(new ChangeListener<Number>() {
+//            @Override
+//            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+//                Platform.runLater(()->{
+//                    TimeStemp.setValue(newValue.intValue());
+//                });
+//            }
+//        });
 
         timeText.addListener(new ChangeListener<String>() {
             @Override
@@ -87,12 +87,6 @@ public class BarController {
                 Platform.runLater(()->{time.setText(newValue);});
             }
         });
-
-//        timeLine.valueProperty().addListener((observable, oldValue, newValue) -> {
-//            TimeStemp.setValue(newValue.intValue());
-//        });
-//        timeText.addListener((observable, oldValue, newValue) -> {time.setText(newValue);});
-
    }
 
 

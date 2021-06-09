@@ -27,20 +27,20 @@ public class Model extends Observable {
     public int port;
 
     public Model() {
-        speed = new SimpleDoubleProperty();
-        aileron = new SimpleDoubleProperty();
-        elevator = new SimpleDoubleProperty();
+        speed = new SimpleDoubleProperty(1);
+        aileron = new SimpleDoubleProperty(0);
+        elevator = new SimpleDoubleProperty(0);
         rudder = new SimpleDoubleProperty(0);
         throttle = new SimpleDoubleProperty(0);
 
         TimeStemp = new SimpleIntegerProperty(1);
 
-        altimeterText = new SimpleStringProperty();
-        airspeedText = new SimpleStringProperty();
-        directionText = new SimpleStringProperty();
-        pitchText = new SimpleStringProperty();
-        yawText = new SimpleStringProperty();
-        rollText = new SimpleStringProperty();
+        altimeterText = new SimpleStringProperty("0");
+        airspeedText = new SimpleStringProperty("0");
+        directionText = new SimpleStringProperty("0");
+        pitchText = new SimpleStringProperty("0");
+        yawText = new SimpleStringProperty("0");
+        rollText = new SimpleStringProperty("0");
         timeText = new SimpleStringProperty("00:00:00");
 
     }
@@ -67,15 +67,15 @@ public class Model extends Observable {
                     setYaw(timeSeries.valuesLines.get(TimeStemp.getValue()).get(20).toString());
                     setRoll(timeSeries.valuesLines.get(TimeStemp.getValue()).get(28).toString());
                     setTimeStemp(TimeStemp.getValue() + 1);
+                    if(TimeStemp.getValue() == timeSeries.values.get(0).size()-2)
+                        clientThread.stop();
                     setTime(flightTime(TimeStemp.getValue(),timeText.getValue()));
                     clientThread.sleep((long) (100 * speed.getValue()));
 //                    out.println(line);
 //                    out.flush();
                 }
 
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            } catch (Exception e) {}
         });
         clientThread.start();
     }
