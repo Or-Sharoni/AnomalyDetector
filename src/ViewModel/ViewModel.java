@@ -71,7 +71,7 @@ public class ViewModel implements Observer {
 
             case ("TimeStemp") :
                 this.TimeStemp.setValue(this.model.TimeStemp.getValue());
- //               System.out.println("TimeStemp: " + this.TimeStemp);
+//                System.out.println(this.TimeStemp.getValue());
                 break;
             case("altimeterText"):
                 this.altimeterText.setValue(this.model.altimeterText.getValue());

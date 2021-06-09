@@ -6,6 +6,7 @@ import Algorithms.SimpleAnomalyDetector;
 import Algorithms.ZScore;
 import Algorithms.Hybrid;
 import Algorithms.TimeSeries;
+import Algorithms.AnomalyReport;
 import View.Bar.Bar;
 import View.Bar.BarController;
 import View.Graphs.GraphsController;
@@ -29,6 +30,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -41,6 +43,9 @@ public class MainController {
     @FXML JoyStickController JoyStickController;
     @FXML ControlPanelController ControlPanelController;
     Properties oldXML;
+    SimpleAnomalyDetector simpleAnomalyDetector;
+    ZScore zScore;
+    Hybrid hybrid;
     public MainController(){
         oldXML = new Properties();
         oldXML.set("src/properties.xml");
@@ -154,14 +159,20 @@ public class MainController {
         // change this path to your local one
         url[0] = new URL("file://" + file.getParentFile().getParent() + "/");
         URLClassLoader urlClassLoader = new URLClassLoader(url);
-        Class<?> c = null;
-            c = urlClassLoader.loadClass(className);
+        Class<?> c = urlClassLoader.loadClass(className);
         // create an Algorithms instance
-            algor = c.newInstance();
+        algor = c.newInstance();
         BarController.result.setText("Load Successfully!");
         BarController.result.setTextFill(Color.web("green"));
+        TimeSeries ts = new TimeSeries(oldXML.learnNormalFile);
 
-        System.out.println(algor);
+        if(algor instanceof SimpleAnomalyDetector) {
+            ((SimpleAnomalyDetector) algor).learnNormal(ts);
+            List<AnomalyReport> anomalyReportList= ((SimpleAnomalyDetector) algor).detect(viewModel.timeSeries);
+            GraphsController.setAnomaliesReports(anomalyReportList);
+        }
+
+
 
     }
 
@@ -187,9 +198,9 @@ public class MainController {
         viewModel.speed.setValue(1/oldXML.defaultSpeed);
         BarController.speedPlay.setText(String.valueOf(oldXML.defaultSpeed));
         TimeSeries ts = new TimeSeries(oldXML.learnNormalFile);
-        SimpleAnomalyDetector ad = new SimpleAnomalyDetector();
-        ZScore zscore = new ZScore();
-        Hybrid hybrid = new Hybrid();
+        simpleAnomalyDetector = new SimpleAnomalyDetector();
+        zScore = new ZScore();
+        hybrid = new Hybrid();
 //        ad.learnNormal(ts);
 //        zscore.learnNormal(ts);
 //        hybrid.learnNormal(ts);

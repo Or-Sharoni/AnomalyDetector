@@ -19,7 +19,9 @@ import javafx.scene.paint.Color;
 
 import javax.swing.*;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class GraphsController {
 
@@ -27,15 +29,13 @@ public class GraphsController {
     @FXML LineChart secondCorrelated;
     @FXML Canvas anomalies;
     @FXML public ListView features;
-
+    List<AnomalyReport> anomaliesReports;
 
     GraphicsContext gc;
     TimeSeries timeSeries;
     StringProperty selectedFeature;
     StringProperty correlatedFeature;
     public IntegerProperty TimeStemp;
-    TimeSeries detect;
-    Thread graphThread;
     ChangeListener listener;
 
     XYChart.Series series;
@@ -53,6 +53,11 @@ public class GraphsController {
         series = new XYChart.Series<>();
         correlatedSeries = new XYChart.Series<>();
         listener = null;
+        anomaliesReports = new ArrayList<>();
+    }
+
+    public void setAnomaliesReports(List<AnomalyReport> anomaliesReports){
+        this.anomaliesReports = anomaliesReports;
     }
 
     public void displayGraphs() {
@@ -109,9 +114,22 @@ public class GraphsController {
                 Platform.runLater(() -> {
                     double X = timeSeries.values.get(index1).get(TimeStemp.getValue())/maxX*(anomalies.getWidth()/2)+(anomalies.getWidth()/2);
                     double Y = (anomalies.getHeight()/2) - timeSeries.values.get(index2).get(TimeStemp.getValue())/maxY*(anomalies.getHeight()/2);
+                    boolean flag = false;
                     series.getData().add(new XYChart.Data<>(newValue.toString(), timeSeries.values.get(index1).get(newValue.intValue())));
                     correlatedSeries.getData().add(new XYChart.Data<>(newValue.toString(), timeSeries.values.get(index2).get(newValue.intValue())));
-                    gc.fillOval(X,Y,3,3);
+                    for(AnomalyReport anomalyReport: anomaliesReports) {
+//                        System.out.println("anomaly:" + anomalyReport.timeStep + "    " + anomalyReport.description + "timestemp" + newValue.longValue());
+                        if (anomalyReport.timeStep == newValue.longValue() && (anomalyReport.description.equals(selectedFeature.getValue() + "-" + correlatedFeature.getValue())  || anomalyReport.description.equals(correlatedFeature.getValue() + "-" + selectedFeature.getValue()))) {
+                            gc.setFill(Color.RED);
+                            gc.fillOval(X, Y, 10, 10);
+                            flag = true;
+                            System.out.println("DETECTED!");
+                        }
+                    }
+                    if(flag == false) {
+                        gc.setFill(Color.GRAY);
+                        gc.fillOval(X, Y, 3, 3);
+                    }
                     gc.stroke();
                 });
             }
