@@ -168,20 +168,20 @@ public class MainController {
 
         if(algor instanceof SimpleAnomalyDetector) {
             ((SimpleAnomalyDetector) algor).learnNormal(ts);
-            List<AnomalyReport> anomalyReportList= ((SimpleAnomalyDetector) algor).detect(viewModel.timeSeries);
-            GraphsController.setAnomaliesReports(anomalyReportList);
+            ((SimpleAnomalyDetector) algor).detect(viewModel.timeSeries);
+            GraphsController.setAlgorithm(algor);
         }
 
         if(algor instanceof Hybrid) {
             ((Hybrid) algor).learnNormal(ts);
-            List<AnomalyReport> anomalyReportList= ((Hybrid) algor).detect(viewModel.timeSeries);
-            GraphsController.setAnomaliesReports(anomalyReportList);
+            ((Hybrid) algor).detect(viewModel.timeSeries);
+            GraphsController.setAlgorithm(algor);
         }
 
         if(algor instanceof ZScore) {
             ((ZScore) algor).learnNormal(ts);
-            List<AnomalyReport> anomalyReportList= ((ZScore) algor).detect(viewModel.timeSeries);
-            GraphsController.setAnomaliesReports(anomalyReportList);
+            ((ZScore) algor).detect(viewModel.timeSeries);
+            GraphsController.setAlgorithm(algor);
         }
 
     }

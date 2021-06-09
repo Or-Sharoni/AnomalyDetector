@@ -7,8 +7,9 @@ import java.util.List;
 
 public class ZScore implements Algorithms{
 
-    ArrayList<Double> trainingData;
-    ArrayList<String> features;
+    public ArrayList<Double> trainingData;
+    public ArrayList<String> features;
+    public List<AnomalyReport> anomalyReportList;
 
 
 
@@ -98,7 +99,7 @@ public class ZScore implements Algorithms{
             time = 1;
             index++;
         }
-
+        this.anomalyReportList = reports;
         return reports;
     }
 }

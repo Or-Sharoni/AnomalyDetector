@@ -35,6 +35,7 @@ public class GraphsController {
     TimeSeries timeSeries;
     StringProperty selectedFeature;
     StringProperty correlatedFeature;
+    Object algorithm;
     public IntegerProperty TimeStemp;
     ChangeListener listener;
 
@@ -56,9 +57,18 @@ public class GraphsController {
         anomaliesReports = new ArrayList<>();
     }
 
-    public void setAnomaliesReports(List<AnomalyReport> anomaliesReports){
-        this.anomaliesReports = anomaliesReports;
+    public void setAlgorithm(Object algorithm){
+        this.algorithm = algorithm;
+        if(algorithm instanceof SimpleAnomalyDetector)
+            anomaliesReports = ((SimpleAnomalyDetector) algorithm).anomalyReportList;
+
+        if(algorithm instanceof Hybrid)
+            anomaliesReports = ((Hybrid) algorithm).anomalyReportList;
+
+        if(algorithm instanceof ZScore)
+            anomaliesReports = ((ZScore) algorithm).anomalyReportList;
     }
+
 
     public void displayGraphs() {
         series = new XYChart.Series<>();
@@ -109,11 +119,12 @@ public class GraphsController {
         secondCorrelated.getData().clear();
         gc.clearRect(0,0,anomalies.getWidth(),anomalies.getHeight());
         initAnomaliesGraph();
-
+        CorrelatedFeatures correlatedFeatures  = null;
         //Print out the graphs data
         index1 = timeSeries.features.indexOf(newFeature);
-        Hybrid hybrid = new Hybrid();
-        CorrelatedFeatures correlatedFeatures = hybrid.maxCorellation(timeSeries,timeSeries.values.get(index1),newFeature,index1);
+        if(algorithm instanceof Hybrid)
+            correlatedFeatures = ((Hybrid) algorithm).maxCorellation(timeSeries,timeSeries.values.get(index1),newFeature,index1);
+
 
         if(correlatedFeatures.feature2 != null) {
             index2 = timeSeries.features.indexOf(correlatedFeatures.feature2);
@@ -149,6 +160,13 @@ public class GraphsController {
         TimeStemp.addListener(listener);
     }
 
+    public CorrelatedFeatures findMax(List<CorrelatedFeatures> correlatedFeaturesList){
+        CorrelatedFeatures max = correlatedFeaturesList.get(0);
+        for(CorrelatedFeatures cf : correlatedFeaturesList)
+            if(cf.feature1.equals(selectedFeature))
+                max = cf.corrlation > max.corrlation ? cf : max;
+        return max;
+    }
     public void initAnomaliesGraph(){
         gc = anomalies.getGraphicsContext2D();
         gc.setFill(Color.BLACK);

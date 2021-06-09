@@ -10,8 +10,9 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class Hybrid implements Algorithms{
-    ArrayList<Object> algorithms;
-    ArrayList<CorrelatedFeatures> correlatedFeatures;
+    public ArrayList<Object> algorithms;
+    public ArrayList<CorrelatedFeatures> correlatedFeatures;
+    public List<AnomalyReport> anomalyReportList;
 
     public TimeSeries createTime(ArrayList<Float> feature1,ArrayList<Float> feature2,String featureName1,String featureName2){
         TimeSeries timeSeries = new TimeSeries();
@@ -135,7 +136,7 @@ public class Hybrid implements Algorithms{
             }
             index++;
         }
-
+    this.anomalyReportList = anomalyReports;
     return anomalyReports;
     }
 }

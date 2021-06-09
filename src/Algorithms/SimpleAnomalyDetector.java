@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class SimpleAnomalyDetector implements Algorithms {
 	public List<CorrelatedFeatures> correlatedList;
+	public List<AnomalyReport> anomalyReportList;
 	float correlationLimit = (float) 0.94;
 	
 	
@@ -65,7 +66,7 @@ public class SimpleAnomalyDetector implements Algorithms {
 				}
 			}
 		}
-
+		this.anomalyReportList = anomalyList;
 		return anomalyList;
 	}
 	
