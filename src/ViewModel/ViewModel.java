@@ -40,11 +40,11 @@ public class ViewModel implements Observer {
         rollText = new SimpleStringProperty();
         timeText = new SimpleStringProperty();
 
+
         //Integer Properties
         TimeStemp = new SimpleIntegerProperty();
         aileron.setValue(1);
         this.model.addObserver(this);
-
     }
 
     @Override

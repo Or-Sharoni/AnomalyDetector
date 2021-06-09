@@ -45,11 +45,11 @@ public class GraphsController {
     public GraphsController() {
         selectedFeature = new SimpleStringProperty();
         TimeStemp = new SimpleIntegerProperty();
+        series = new XYChart.Series<>();
+        correlatedSeries = new XYChart.Series<>();
     }
 
     public void displayGraphs() {
-         series = new XYChart.Series<>();
-         correlatedSeries = new XYChart.Series<>();
         for(Integer time=0;time<TimeStemp.getValue();time++){
             series.getData().add(new XYChart.Data<>(time.toString(), timeSeries.values.get(index1).get(time)));
             correlatedSeries.getData().add(new XYChart.Data<>(time.toString(), timeSeries.values.get(index2).get(time)));
@@ -58,16 +58,6 @@ public class GraphsController {
         secondCorrelated.getData().add(correlatedSeries);
     }
 
-//    public void updateGraph(){
-//        listener = new ChangeListener() {
-//            @Override
-//            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-////                series.getData().add(new XYChart.Data<>(newValue.toString(), timeSeries.values.get(index1).get((int)newValue)));
-////                correlatedSeries.getData().add(new XYChart.Data<>(newValue.toString(), timeSeries.values.get(index2).get((int)newValue)));
-//                System.out.println((int)newValue);
-//            }
-//        };
-//    }
 
     public void setTimeSeiries(TimeSeries timeSeries){ this.timeSeries = timeSeries; }
     public void changingFeatureHandler(String newFeature){

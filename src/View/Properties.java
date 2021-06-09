@@ -12,20 +12,25 @@ public class Properties{
 
     public int hertzRate;
     public int port;
+    public double defaultSpeed;
     public String ip;
     public String learnNormalFile;
+    public String defaultAlgorithm;
     public HashMap<String,Feature> map;
 
+
     public Properties(){ map = new HashMap<>();}
-    public void set(File file){
+    public void set(String filePath){
         try {
-            XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(file.getPath())));
+            XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(filePath)));
             Properties properties =(Properties) decoder.readObject();
             this.map = properties.map;
             this.port = properties.port;
             this.ip = properties.ip;
             this.hertzRate = properties.hertzRate;
             this.learnNormalFile = properties.learnNormalFile;
+            this.defaultAlgorithm = properties.defaultAlgorithm;
+            this.defaultSpeed = properties.defaultSpeed;
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -47,6 +52,8 @@ public class Properties{
     public void setIp(String ip){ this.ip = ip;}
     public void setHertzRate(int hertzRate){ this.hertzRate = hertzRate;}
     public void setLearnNormalFile(String path){this.learnNormalFile = path;}
+    public void setDefaultSpeed(double speed){this.defaultSpeed = speed;}
+    public void setDefaultAlgorithm(String path){this.defaultAlgorithm = path;}
 
     public boolean validition(){
         for(Map.Entry<String,Feature> entry: map.entrySet()){
