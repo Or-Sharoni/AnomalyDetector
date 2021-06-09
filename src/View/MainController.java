@@ -40,7 +40,11 @@ public class MainController {
     @FXML GraphsController GraphsController;
     @FXML JoyStickController JoyStickController;
     @FXML ControlPanelController ControlPanelController;
-    Properties oldXML = new Properties();
+    Properties oldXML;
+    public MainController(){
+        oldXML = new Properties();
+        oldXML.set("src/properties.xml");
+    }
 
     public void setViewModel(ViewModel viewModel) {
         this.viewModel = viewModel;
@@ -125,7 +129,7 @@ public class MainController {
         }
         viewModel.model.timeSeries = viewModel.timeSeries;
         viewModel.model.displaySimulator();
-//        viewModel.model.Suspend();
+        viewModel.model.Stop();
         GraphsController.setTimeSeiries(viewModel.timeSeries);
         viewModel.model.port = oldXML.port;
         viewModel.model.ip = oldXML.ip;
@@ -168,7 +172,6 @@ public class MainController {
         if(file == null)
             return;
         Properties newXML = new Properties();
-        oldXML.set("/Users/or.s/ptm/AnomalyDetector/src/properties.xml");
         newXML.set(file.getPath());
 // test XML
         for(Map.Entry<String,Feature> entry : oldXML.map.entrySet()){
@@ -180,10 +183,10 @@ public class MainController {
         }
         BarController.result.setText("Load Successfully!");
         BarController.result.setTextFill(Color.web("green"));
-        oldXML.set(file.getPath());
-        viewModel.speed.setValue(1/newXML.defaultSpeed);
-        BarController.speedPlay.setText(String.valueOf(newXML.defaultSpeed));
-        TimeSeries ts = new TimeSeries(newXML.learnNormalFile);
+        oldXML = newXML;
+        viewModel.speed.setValue(1/oldXML.defaultSpeed);
+        BarController.speedPlay.setText(String.valueOf(oldXML.defaultSpeed));
+        TimeSeries ts = new TimeSeries(oldXML.learnNormalFile);
         SimpleAnomalyDetector ad = new SimpleAnomalyDetector();
         ZScore zscore = new ZScore();
         Hybrid hybrid = new Hybrid();

@@ -190,7 +190,7 @@ public class Model extends Observable {
 
         }
         else {
-            displaySimulator();
+            this.displaySimulator();
         }
     }
 

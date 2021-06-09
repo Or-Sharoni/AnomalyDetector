@@ -63,10 +63,6 @@ public class BarController {
         speed.setValue(1.25);
         speedPlay.setText("0.75");
     }
-    public void playNormal(){
-        speed.setValue(1);
-        speedPlay.setText("1");
-    }
     public void initialize() {
         TimeStemp.addListener(new ChangeListener<Number>() {
             @Override
@@ -76,14 +72,14 @@ public class BarController {
         });
 
 
-//        timeLine.valueProperty().addListener(new ChangeListener<Number>() {
-//            @Override
-//            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-//                Platform.runLater(()->{
-//                    TimeStemp.setValue(newValue.intValue());
-//                });
-//            }
-//        });
+        timeLine.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                Platform.runLater(()->{
+                    TimeStemp.setValue(newValue.intValue());
+                });
+            }
+        });
 
         timeText.addListener(new ChangeListener<String>() {
             @Override
