@@ -52,26 +52,19 @@ public class ViewModel implements Observer {
             case ("Aileron"):
                 this.aileron.setValue(this.model.aileron.getValue());
                 break;
-//            System.out.println("aileron: " + this.aileron);
-
             case ("Elevator"):
                 this.elevator.setValue(this.model.elevator.getValue());
                 break;
-//            System.out.println("elevator: " + this.elevator);
-
             case ( "Rudder") :
                 this.rudder.setValue(this.model.rudder.getValue());
                 break;
-//            System.out.println("rudder: " + this.rudder);
 
             case ("Throttle"):
                 this.throttle.setValue(this.model.throttle.getValue());
                 break;
-//            System.out.println("throttle: " + this.throttle);
 
             case ("TimeStemp") :
                 this.TimeStemp.setValue(this.model.TimeStemp.getValue());
-                System.out.println(this.TimeStemp.getValue());
                 break;
             case("altimeterText"):
                 this.altimeterText.setValue(this.model.altimeterText.getValue());

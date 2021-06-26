@@ -138,6 +138,7 @@ public class MainController {
         GraphsController.setTimeSeiries(viewModel.timeSeries);
         viewModel.model.port = oldXML.port;
         viewModel.model.ip = oldXML.ip;
+        viewModel.model.FilePath = file.getPath();
     }
 
 
@@ -233,12 +234,5 @@ public class MainController {
                 Platform.runLater(()->{viewModel.model.speed.setValue(newValue.doubleValue());});
             }
         });
-//        BarController.TimeStemp.addListener((observable, oldValue, newValue) -> {
-//            viewModel.model.TimeStemp.setValue(newValue.intValue());
-//        });
-//
-//        BarController.speed.addListener((observable, oldValue, newValue) -> {
-//            viewModel.model.speed.setValue(newValue.doubleValue());
-//        });
     }
 }

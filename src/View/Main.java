@@ -37,7 +37,6 @@ public class Main extends Application {
         controller.setViewModel(viewModel);
 
         Properties properties = new Properties();
-     //   properties.set();
         model.displaySimulator();
 
         primaryStage.setTitle("Controller");
@@ -54,20 +53,6 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
-//        TimeSeries ts1 = new TimeSeries("/Users/royna/AnomalyDetector/src/reg_flight.csv");
-//        TimeSeries ts2 = new TimeSeries("/Users/royna/AnomalyDetector/src/anomaly_flight.csv");
-//
-//        SimpleAnomalyDetector simpleAnomalyDetector = new SimpleAnomalyDetector();
-//        simpleAnomalyDetector.learnNormal(ts1);
-//        List<AnomalyReport> anomalyReportList = simpleAnomalyDetector.detect(ts2);
-//        for(AnomalyReport anomalyReport: anomalyReportList){
-//            System.out.println(anomalyReport.timeStep +  "        " +anomalyReport.description);
-//        Hybrid hybrid = new Hybrid();
-//        hybrid.learnNormal(ts1);
-//        List<AnomalyReport> anomalyReportList = hybrid.detect(ts2);
-//        for(AnomalyReport anomalyReport: anomalyReportList){
-//            System.out.println(anomalyReport.description + "  " + anomalyReport.timeStep);
-//        }
 
     }
 

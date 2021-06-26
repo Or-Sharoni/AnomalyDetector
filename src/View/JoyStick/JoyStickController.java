@@ -60,10 +60,7 @@ public class JoyStickController {
         });
 
 
-//        rudder.addListener((observable, oldValue, newValue) -> {horizontal.setValue((double)newValue);});
-//        throttle.addListener((observable, oldValue, newValue) -> {vertical.setValue((double)newValue);});
-//        aileron.addListener((observable, oldValue, newValue) -> {joystick.setCenterX(newValue.doubleValue()*80);});
-//        elevator.addListener((observable, oldValue, newValue) -> {joystick.setCenterY(newValue.doubleValue()*80);});
+
     }
 
 

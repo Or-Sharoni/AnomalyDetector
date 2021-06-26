@@ -5,10 +5,8 @@ import View.Bar.BarController;
 import ViewModel.ViewModel;
 import javafx.application.Platform;
 import javafx.beans.property.*;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintWriter;
+
+import java.io.*;
 import java.net.Socket;
 import java.sql.Time;
 import java.util.ArrayList;
@@ -24,6 +22,7 @@ public class Model extends Observable {
     public Thread clientThread;
     public TimeSeries timeSeries;
     public String ip;
+    public String FilePath;
     public int port;
 
     public Model() {
@@ -49,14 +48,12 @@ public class Model extends Observable {
         clientThread = new Thread(() -> {
             try {
                 int size = timeSeries.valuesLines.size();
-//                Socket fg=new Socket(ip, port); // bind with xml :)
-//                BufferedReader in=new BufferedReader(new FileReader("src/reg_flight.csv"));
-//                PrintWriter out=new PrintWriter(fg.getOutputStream());
-//                String line;
-                while(TimeStemp.getValue()<size){
-//                    ArrayList<Float> array=timeSeries.valuesLines.get(TimeStemp.getValue());
+                Socket fg=new Socket(ip, port); // bind with xml :)
+                BufferedReader in=new BufferedReader(new FileReader(FilePath));
+                PrintWriter out=new PrintWriter(fg.getOutputStream());
+                String line;
+                while(TimeStemp.getValue()<size && (line = in.readLine()) != null){
                     setAileron(timeSeries.valuesLines.get(TimeStemp.getValue()).get(0));
-//                    out.println();
                     setElevator(timeSeries.valuesLines.get(TimeStemp.getValue()).get(1));
                     setRudder(timeSeries.valuesLines.get(TimeStemp.getValue()).get(2));
                     setThrottle(timeSeries.valuesLines.get(TimeStemp.getValue()).get(6));
@@ -70,9 +67,11 @@ public class Model extends Observable {
                     if(TimeStemp.getValue() == timeSeries.values.get(0).size()-2)
                         clientThread.stop();
                     setTime(flightTime(TimeStemp.getValue(),timeText.getValue()));
+
+                    out.println(line);
+                    out.flush();
                     clientThread.sleep((long) (100 * speed.getValue()));
-//                    out.println(line);
-//                    out.flush();
+
                 }
 
             } catch (Exception e) {}

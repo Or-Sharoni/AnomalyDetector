@@ -71,16 +71,6 @@ public class BarController {
             }
         });
 
-
-//        timeLine.valueProperty().addListener(new ChangeListener<Number>() {
-//            @Override
-//            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-//                Platform.runLater(()->{
-//                    TimeStemp.setValue(newValue.intValue());
-//                });
-//            }
-//        });
-
         timeText.addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
